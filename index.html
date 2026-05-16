@@ -5,63 +5,235 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aram — Job Briefs</title>
   <style>
-    :root { --bg:#0b1020; --card:#121933; --muted:#92a0c3; --text:#eef3ff; --link:#8dc5ff; --border:#263055; }
-    * { box-sizing:border-box; }
-    body { margin:0; font-family:Inter,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.45; padding:32px; }
-    .wrap { max-width:980px; margin:0 auto; }
-    .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:18px; }
-    a { color:var(--link); text-decoration:none; }
-    h1,h2,p { margin-top:0; }
-    
-.actions { display:flex; gap:10px; flex-wrap:wrap; margin: 12px 0 8px; }
-.action-btn {
-  display:inline-block;
-  padding:10px 14px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:#1a2448;
-  color:var(--text);
-  text-decoration:none;
-  font-weight:700;
-  font-size:14px;
+:root {
+  --bg: #08111f;
+  --panel: #0f1a2d;
+  --panel-2: #13203a;
+  --line: #223355;
+  --text: #ecf2ff;
+  --muted: #9aabca;
+  --link: #8dbdff;
+  --strong: #64d59a;
+  --strong-bg: rgba(100, 213, 154, 0.14);
+  --maybe: #e8c463;
+  --maybe-bg: rgba(232, 196, 99, 0.14);
+  --skip: #ea8080;
+  --skip-bg: rgba(234, 128, 128, 0.14);
+  --shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
 }
-.action-btn.apply { border-color:#2f8f5b; color:#9bf0bc; }
-.action-btn.skip { border-color:#9a3a3a; color:#ffb3b3; }
-.action-state { color: var(--muted); font-size: 13px; }
-.topnav { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
-.topnav a {
-  display:inline-block;
-  padding:8px 12px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  color:var(--link);
-  text-decoration:none;
-  background:rgba(141,197,255,.08);
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #08111f 0%, #0a1324 100%);
+  color: var(--text);
+  font: 15px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-.archive-list { display:grid; gap:12px; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+main, .shell { max-width: 1160px; margin: 0 auto; padding: 24px 18px 48px; }
+.topbar {
+  position: sticky; top: 0; z-index: 40;
+  backdrop-filter: blur(10px);
+  background: rgba(8, 17, 31, 0.88);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.topbar-inner {
+  max-width: 1160px; margin: 0 auto; padding: 12px 18px;
+  display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;
+}
+.brand { font-weight: 800; letter-spacing: 0.01em; }
+.nav-actions, .hero-actions, .filter-row, .card-actions, .archive-actions {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+}
+.btn, .btn-secondary, .ghost-link, .action-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 10px 14px; border-radius: 12px;
+  border: 1px solid var(--line); text-decoration: none; font-weight: 700;
+}
+.btn { background: var(--text); color: #08111f; }
+.btn:hover { text-decoration: none; opacity: 0.95; }
+.btn-secondary, .action-btn {
+  background: rgba(255,255,255,0.03); color: var(--text);
+}
+.btn-secondary:hover, .action-btn:hover { text-decoration: none; background: rgba(255,255,255,0.06); }
+.ghost-link {
+  min-height: auto; padding: 0; border: none; border-radius: 0; color: var(--muted); font-weight: 600;
+}
+.hero {
+  background: linear-gradient(180deg, rgba(19,32,58,.94), rgba(12,21,38,.98));
+  border: 1px solid rgba(141,189,255,0.14);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.hero-grid {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, .9fr); gap: 18px; align-items: start;
+}
+.kicker { color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; margin-bottom: 10px; }
+.hero h1 { margin: 0 0 8px; font-size: clamp(30px, 5vw, 44px); line-height: 1.04; }
+.hero-summary { margin: 0 0 10px; color: var(--muted); }
+.hero-overview { margin: 0; max-width: 70ch; }
+.panel {
+  background: var(--panel); border: 1px solid rgba(255,255,255,0.06); border-radius: 18px; padding: 18px;
+}
+.panel h2, .panel h3 { margin-top: 0; }
+.metric-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 18px;
+}
+.metric {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 14px;
+}
+.metric-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.metric-value { font-size: 28px; line-height: 1.1; font-weight: 800; margin-top: 8px; }
+.metric-note { margin-top: 6px; color: var(--muted); font-size: 13px; }
+.section { margin-top: 18px; }
+.section-head {
+  display: flex; gap: 12px; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px;
+}
+.section-head h2, .section-head h3 { margin: 0; }
+.group-summary { color: var(--muted); font-size: 14px; }
+.group-anchor { display: inline-flex; align-items: center; gap: 8px; }
+.badge {
+  display: inline-flex; align-items: center; justify-content: center; padding: 5px 10px; border-radius: 999px;
+  font-size: 12px; font-weight: 800; letter-spacing: .02em; border: 1px solid transparent;
+}
+.badge.strong { color: var(--strong); background: var(--strong-bg); border-color: rgba(100, 213, 154, 0.22); }
+.badge.maybe { color: var(--maybe); background: var(--maybe-bg); border-color: rgba(232, 196, 99, 0.22); }
+.badge.skip { color: var(--skip); background: var(--skip-bg); border-color: rgba(234, 128, 128, 0.22); }
+.badge.source, .badge.count, .badge.state {
+  color: var(--muted); background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);
+}
+.focus-list { margin: 0; padding-left: 18px; color: var(--text); }
+.focus-list li { margin-bottom: 8px; }
+.roles { display: grid; gap: 12px; }
+.role-card {
+  position: relative;
+  display: grid; gap: 12px;
+  background: linear-gradient(180deg, rgba(16,27,47,.96), rgba(12,20,36,.98));
+  border: 1px solid rgba(255,255,255,0.06);
+  border-left-width: 4px;
+  border-radius: 18px;
+  padding: 16px;
+}
+.role-card[data-verdict="strong"] { border-left-color: var(--strong); }
+.role-card[data-verdict="maybe"] { border-left-color: var(--maybe); }
+.role-card[data-verdict="skip"] { border-left-color: var(--skip); }
+.role-card[data-local-state="apply"] { box-shadow: inset 0 0 0 1px rgba(100, 213, 154, 0.22); }
+.role-card[data-local-state="skip"] { box-shadow: inset 0 0 0 1px rgba(234, 128, 128, 0.22); }
+.role-top {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start;
+}
+.role-title { margin: 0; font-size: 22px; line-height: 1.15; }
+.role-title a { color: var(--text); }
+.role-title a:hover { color: var(--link); }
+.role-meta, .archive-meta {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 8px;
+}
+.meta-pill {
+  display: inline-flex; align-items: center; min-height: 28px; padding: 5px 10px; border-radius: 999px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); color: var(--muted); font-size: 13px;
+}
+.reason {
+  font-size: 16px; line-height: 1.45; margin: 0; color: var(--text);
+}
+.reason strong { color: var(--muted); font-weight: 700; margin-right: 6px; }
+.card-actions .btn, .card-actions .btn-secondary, .card-actions .ghost-link, .card-actions .action-btn { min-height: 42px; }
+.action-btn.apply { border-color: rgba(100, 213, 154, 0.3); color: var(--strong); }
+.action-btn.skip { border-color: rgba(234, 128, 128, 0.3); color: var(--skip); }
+.action-state { color: var(--muted); font-size: 13px; min-height: 18px; }
+details.role-details {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 10px;
+}
+details.role-details summary {
+  cursor: pointer; color: var(--muted); font-weight: 700; list-style: none;
+}
+details.role-details summary::-webkit-details-marker { display: none; }
+.detail-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px;
+}
+.detail-box {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 12px;
+}
+.detail-box h4 { margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.detail-box p { margin: 0; }
+.archive-list { display: grid; gap: 12px; }
 .archive-item {
-  display:flex; justify-content:space-between; gap:16px; align-items:center;
-  padding:14px 16px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px;
+  padding: 14px 16px; background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 16px;
 }
-.small-muted { color: var(--muted); font-size: 14px; }
-
-  </style>
+.inline-note { color: var(--muted); font-size: 14px; }
+.filter-row { margin-top: 12px; }
+.filter-chip {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 7px 10px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color: var(--muted); font-weight: 700;
+}
+.filter-chip.is-active { color: var(--text); background: rgba(141,189,255,0.12); border-color: rgba(141,189,255,0.25); }
+@media (max-width: 900px) {
+  .hero-grid, .metric-grid, .detail-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  main, .shell { padding: 18px 14px 36px; }
+  .hero, .panel { padding: 16px; border-radius: 18px; }
+  .role-card { padding: 14px; }
+  .role-top, .archive-item { grid-template-columns: 1fr; }
+  .role-title { font-size: 19px; }
+}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <h1>Aram — Job Briefs</h1>
-      <p class="small-muted">Daily archive + action queue</p>
-      <div class="topnav">
-        <a href="./latest/">Open latest brief</a>
-        <a href="https://github.com/aramshakh/job-briefs/issues">Action queue issues</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Aram — Job Briefs</div>
+      <nav class="nav-actions" aria-label="Primary">
+        <a class="btn-secondary" href="./latest/">Today</a>
+        <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues">Queue</a>
+      </nav>
+    </div>
+  </header>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker">High-throughput job triage</div>
+          <h1>Control surface for daily job decisions</h1>
+          <p class="hero-overview">This is the front door for the workflow: open today’s brief, process the strongest roles first, and use the queue as the follow-through lane.</p>
+          <div class="hero-actions" style="margin-top:16px;">
+            <a class="btn" href="./latest/">Open today’s brief</a>
+            <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues">Open queue</a>
+          </div>
+        </div>
+        <aside class="panel" aria-label="Latest status">
+          <h2 style="margin-bottom:10px;">Latest snapshot</h2>
+          <div class="metric-grid" style="margin-top:0; grid-template-columns:repeat(2, minmax(0, 1fr));">
+            <div class="metric"><div class="metric-label">Brief date</div><div class="metric-value" style="font-size:22px;">2026-05-16</div></div>
+            <div class="metric"><div class="metric-label">Reviewed</div><div class="metric-value">20</div></div>
+            <div class="metric"><div class="metric-label">Strong</div><div class="metric-value">8</div></div>
+            <div class="metric"><div class="metric-label">Maybe</div><div class="metric-value">8</div></div>
+          </div>
+          <div class="metric" style="margin-top:10px;"><div class="metric-label">Skip bucket</div><div class="metric-value">4</div><div class="metric-note">Useful for context, not first attention.</div></div>
+        </aside>
       </div>
-      <p>Click a day to open that brief. Inside each brief, the buttons create a prefilled issue in the public action queue repo so the click works reliably from GitHub Pages and mobile.</p>
+    </section>
+    <section class="panel section">
+      <div class="section-head"><h2>Archive</h2><div class="inline-note">Each row carries enough signal to decide whether you need to reopen that day.</div></div>
+      <div class="archive-list"><div class="archive-item">
+  <div>
+    <h3 style="margin:0 0 6px;">2026-05-16</h3>
+    <div class="archive-meta">
+      <span class="meta-pill">20 roles</span>
+      <span class="meta-pill">8 strong</span>
+      <span class="meta-pill">8 maybe</span>
+      <span class="meta-pill">4 skip</span>
     </div>
-    <div class="section">
-      <h2>Archive</h2>
-      <div class="archive-list"><div class="archive-item"><div><strong>2026-05-16</strong><div class="small-muted">Daily brief archive</div></div><a class="action-btn" href="./archive/2026-05-16/">Open brief</a></div></div>
-    </div>
+  </div>
+  <div class="archive-actions">
+    <a class="btn-secondary" href="./archive/2026-05-16/">Open brief</a>
+  </div>
+</div></div>
+    </section>
   </div>
 </body>
 </html>
