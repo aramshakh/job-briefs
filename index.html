@@ -3,249 +3,64 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aram Daily Job Brief - 2026-05-16</title>
+  <title>Aram — Job Briefs</title>
   <style>
-    :root {
-      --bg: #0b1020;
-      --card: #121933;
-      --muted: #92a0c3;
-      --text: #eef3ff;
-      --strong: #45d483;
-      --maybe: #f5c451;
-      --skip: #f06a6a;
-      --link: #8dc5ff;
-      --border: #263055;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.45;
-      padding: 32px;
-    }
-    .wrap { max-width: 980px; margin: 0 auto; }
-    .hero, .section, .role {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 18px;
-    }
-    h1, h2, h3, p { margin-top: 0; }
-    .meta, .small { color: var(--muted); }
-    .grid { display: grid; gap: 14px; }
-    .badge {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-right: 8px;
-    }
-    .strong { background: rgba(69,212,131,.18); color: var(--strong); }
-    .maybe { background: rgba(245,196,81,.16); color: var(--maybe); }
-    .skip { background: rgba(240,106,106,.16); color: var(--skip); }
-    .source { background: rgba(141,197,255,.14); color: var(--link); }
-    a { color: var(--link); text-decoration: none; }
-    ul { padding-left: 20px; margin-bottom: 0; }
-    .role-header { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
-    .role-header h3 { margin-bottom: 6px; }
-    .notes { margin: 10px 0 0; }
-    .notes li { margin-bottom: 6px; }
+    :root { --bg:#0b1020; --card:#121933; --muted:#92a0c3; --text:#eef3ff; --link:#8dc5ff; --border:#263055; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.45; padding:32px; }
+    .wrap { max-width:980px; margin:0 auto; }
+    .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:18px; }
+    a { color:var(--link); text-decoration:none; }
+    h1,h2,p { margin-top:0; }
+    
+.actions { display:flex; gap:10px; flex-wrap:wrap; margin: 12px 0 8px; }
+.action-btn {
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#1a2448;
+  color:var(--text);
+  text-decoration:none;
+  font-weight:700;
+  font-size:14px;
+}
+.action-btn.apply { border-color:#2f8f5b; color:#9bf0bc; }
+.action-btn.skip { border-color:#9a3a3a; color:#ffb3b3; }
+.action-state { color: var(--muted); font-size: 13px; }
+.topnav { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
+.topnav a {
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  color:var(--link);
+  text-decoration:none;
+  background:rgba(141,197,255,.08);
+}
+.archive-list { display:grid; gap:12px; }
+.archive-item {
+  display:flex; justify-content:space-between; gap:16px; align-items:center;
+  padding:14px 16px; border:1px solid var(--border); border-radius:14px; background:var(--card);
+}
+.small-muted { color: var(--muted); font-size: 14px; }
+
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="hero">
-      <h1>Aram Daily Job Brief</h1>
-      <p class="meta">2026-05-16 · 39 new pipeline additions reviewed + YC startup lane checked</p>
-      <p>Today’s scan produced volume, but only a narrow slice looks worth attention for your actual lane. The best fits continue to be roles where AI/workflow framing, customer discovery, and enterprise adoption matter more than pure quota carrying or deep engineering ownership. The cleanest current options are Glean’s AI Outcomes role, Celonis’s customer-facing applied AI consultant path, and two YC deployment/operator roles that sit close to productized AI adoption rather than generic sales.</p>
-    </div>
-
-    <div class="section">
-      <h2>Recommended focus</h2>
-      <ul>
-        <li>Prioritize <strong>AI outcomes / deployment / solutions</strong> roles that explicitly tie AI to measurable customer workflows.</li>
-        <li>Treat <strong>partnerships and product roles</strong> as secondary unless the JD does not quietly require deep engineering ownership or very senior ecosystem credentials.</li>
-        <li>Ignore flattering but low-conversion titles where <strong>architect / PM</strong> really means hands-on technical depth, cloud architecture, or heavy LLM implementation.</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>Roles</h2>
-      <div class="grid">
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>Glean — <a href="https://job-boards.greenhouse.io/gleanwork/jobs/4613925005">AI Outcomes Manager, London</a></h3>
-              <p class="small">Pipeline · London, hybrid</p>
-            </div>
-            <div>
-              <span class="badge strong">Strong</span>
-              <span class="badge source">Pipeline</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> Explicitly about finding high-impact AI use cases, running workshops/pilots, and turning customer workflows into measurable outcomes.</li>
-            <li><strong>Risk:</strong> Still expects enough AI fluency to design agents credibly; hybrid London may narrow practicality.</li>
-          </ul>
-        </div>
-
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>Celonis — <a href="https://job-boards.greenhouse.io/celonis/jobs/7661696003">Senior Applied AI Solutions Consultant</a></h3>
-              <p class="small">Pipeline · Amsterdam</p>
-            </div>
-            <div>
-              <span class="badge strong">Strong</span>
-              <span class="badge source">Pipeline</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> Rare JD that explicitly says the focus is problem framing, solution design, and business impact rather than pure software engineering.</li>
-            <li><strong>Risk:</strong> Requires some prototyping comfort with Python / GenAI frameworks, so conversion depends on how convincingly that edge can be framed.</li>
-          </ul>
-        </div>
-
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>Vercel — <a href="https://job-boards.greenhouse.io/vercel/jobs/5843333004">Senior Product Partnerships Manager</a></h3>
-              <p class="small">Pipeline · SF / NYC / Austin hybrid</p>
-            </div>
-            <div>
-              <span class="badge maybe">Maybe</span>
-              <span class="badge source">Pipeline</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> Cross-functional ecosystem role around partner pipeline, marketplace programs, co-sell motions, and agentic-cloud positioning.</li>
-            <li><strong>Risk:</strong> More partner-ops/program-management than applied AI product leadership, plus US-office hybrid requirement.</li>
-          </ul>
-        </div>
-
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>Parloa — <a href="https://job-boards.eu.greenhouse.io/parloa/jobs/4784741101">GSI Partnerships Manager</a></h3>
-              <p class="small">Pipeline · New York</p>
-            </div>
-            <div>
-              <span class="badge maybe">Maybe</span>
-              <span class="badge source">Pipeline</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> Strategic AI partnerships thesis is directionally right: joint solutions, co-sell, enterprise transformation, customer outcomes.</li>
-            <li><strong>Risk:</strong> JD wants 10+ years plus strong GSI executive network, which may make this more flattering than realistic.</li>
-          </ul>
-        </div>
-
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>Anthropic — <a href="https://job-boards.greenhouse.io/anthropic/jobs/5112486008">Applied AI Architect, Partnerships</a></h3>
-              <p class="small">Pipeline · Paris</p>
-            </div>
-            <div>
-              <span class="badge skip">Skip</span>
-              <span class="badge source">Pipeline</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> The partner/solutions angle looks attractive on paper.</li>
-            <li><strong>Risk:</strong> In practice this is a pre-sales architect role with cloud architecture, troubleshooting, and technical enablement depth that likely over-indexes on engineering background.</li>
-          </ul>
-        </div>
-
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>PolyAI — <a href="https://job-boards.eu.greenhouse.io/polyai/jobs/4713506101">Group Product Manager</a></h3>
-              <p class="small">Pipeline · London</p>
-            </div>
-            <div>
-              <span class="badge skip">Skip</span>
-              <span class="badge source">Pipeline</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> Enterprise conversational AI and multichannel workflow ownership are superficially on-strategy.</li>
-            <li><strong>Risk:</strong> The JD explicitly asks for strong technical background plus leadership across complex product/engineering lines, so this reads like a true technical product leader hire.</li>
-          </ul>
-        </div>
-
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>HappyRobot — <a href="https://www.workatastartup.com/jobs/78394">Deployment Strategist</a></h3>
-              <p class="small">YC lane · San Francisco · $150K-$200K</p>
-            </div>
-            <div>
-              <span class="badge strong">Strong</span>
-              <span class="badge source">YC</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> Strong match to your deployment-strategist lane: customer operations, product translation, user insight, and measurable value in a serious AI company.</li>
-            <li><strong>Risk:</strong> High-intensity in-person environment; logistics focus is narrower than broader AI-product roles.</li>
-          </ul>
-        </div>
-
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>Usul — <a href="https://www.workatastartup.com/jobs/88355">Deployment Strategist</a></h3>
-              <p class="small">YC lane · San Francisco Office · $140K-$200K + equity</p>
-            </div>
-            <div>
-              <span class="badge strong">Strong</span>
-              <span class="badge source">YC</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> Clean operator/deployment brief: own customer deployments, turn messy buying environments into adoption, and work at the interface of product and mission-critical users.</li>
-            <li><strong>Risk:</strong> Defense/government context and on-site SF requirement make it narrower and potentially values-sensitive.</li>
-          </ul>
-        </div>
-
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>StackAI — <a href="https://www.workatastartup.com/jobs/82305">Senior Product Manager</a></h3>
-              <p class="small">YC lane · SF office</p>
-            </div>
-            <div>
-              <span class="badge maybe">Maybe</span>
-              <span class="badge source">YC</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> Enterprise AI workflow platform, strong applied-AI/product thesis, and clear customer-to-roadmap loop.</li>
-            <li><strong>Risk:</strong> Looks like a true foundational PM hire in a technical product org, so the bar may drift toward deeper product/engineering credibility than is ideal.</li>
-          </ul>
-        </div>
-
-        <div class="role">
-          <div class="role-header">
-            <div>
-              <h3>Bravi — <a href="https://www.workatastartup.com/jobs/94325">Founding GTM</a></h3>
-              <p class="small">YC lane · New York / selective remote · $120K-$190K + equity</p>
-            </div>
-            <div>
-              <span class="badge maybe">Maybe</span>
-              <span class="badge source">YC</span>
-            </div>
-          </div>
-          <ul class="notes">
-            <li><strong>Fit:</strong> Founder-adjacent AI workflow company with broad exposure across product, growth, strategy, and customer conversations.</li>
-            <li><strong>Risk:</strong> The remit is intentionally broad and could slide into founder-chaos generalism instead of a clean applied-AI product/GTM seat.</li>
-          </ul>
-        </div>
+      <h1>Aram — Job Briefs</h1>
+      <p class="small-muted">Daily archive + action queue</p>
+      <div class="topnav">
+        <a href="./latest/">Open latest brief</a>
+        <a href="https://github.com/aramshakh/job-briefs-control">Private action queue</a>
       </div>
+      <p>Click a day to open that brief. Inside each brief, the buttons create a prefilled issue in your private control repo so roles can be queued cleanly.</p>
+    </div>
+    <div class="section">
+      <h2>Archive</h2>
+      <div class="archive-list"><div class="archive-item"><div><strong>2026-05-16</strong><div class="small-muted">Daily brief archive</div></div><a class="action-btn" href="./archive/2026-05-16/">Open brief</a></div></div>
     </div>
   </div>
 </body>
