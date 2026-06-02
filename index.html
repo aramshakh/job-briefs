@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aram — Job Briefs</title>
+  <title>Aram — Unified Job Ops Board</title>
   <style>
 :root {
   --bg: #08111f;
@@ -126,7 +126,11 @@ main, .shell { max-width: 1160px; margin: 0 auto; padding: 24px 18px 48px; }
 .role-card[data-verdict="maybe"] { border-left-color: var(--maybe); }
 .role-card[data-verdict="skip"] { border-left-color: var(--skip); }
 .role-card[data-local-state="apply"] { box-shadow: inset 0 0 0 1px rgba(100, 213, 154, 0.22); }
-.role-card[data-local-state="skip"] { box-shadow: inset 0 0 0 1px rgba(234, 128, 128, 0.22); }
+.role-card[data-local-state="later"] { box-shadow: inset 0 0 0 1px rgba(141, 189, 255, 0.22); }
+.role-card[data-local-state="skip"] { box-shadow: inset 0 0 0 1px rgba(234, 128, 128, 0.22); opacity: .82; }
+.suppression-bar { display: grid; gap: 8px; margin-top: 12px; }
+.suppression-bar .inline-note strong { color: var(--text); }
+.section-stack { display: grid; gap: 18px; }
 .role-top {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start;
 }
@@ -192,39 +196,778 @@ details.role-details summary::-webkit-details-marker { display: none; }
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand">Aram — Job Briefs</div>
+      <div class="brand">Aram — Unified Job Ops Board</div>
       <nav class="nav-actions" aria-label="Primary">
-        <a class="btn-secondary" href="./latest/">Today</a>
+        <a class="btn-secondary" href="./latest/">Today’s brief</a>
         <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues">Queue</a>
       </nav>
     </div>
   </header>
-  <div class="shell">
+  <div class="shell section-stack">
     <section class="hero">
       <div class="hero-grid">
         <div>
-          <div class="kicker">High-throughput job triage</div>
-          <h1>Control surface for daily job decisions</h1>
-          <p class="hero-overview">This is the front door for the workflow: open today’s brief, process the strongest roles first, and use the queue as the follow-through lane.</p>
+          <div class="kicker">Single control surface</div>
+          <h1>One feed for discovery, triage, and apply prep</h1>
+          <p class="hero-summary">2026-06-01 · feed-first board · new today separated from backlog · Hermes execution states visible in the same surface</p>
+          <p class="hero-overview">Open one board, skim the genuinely new roles first, then move straight into the current best targets and whatever Hermes is already preparing, blocking, or readying for submission. This is the working surface, not the archive.</p>
           <div class="hero-actions" style="margin-top:16px;">
-            <a class="btn" href="./latest/">Open today’s brief</a>
-            <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues">Open queue</a>
+            <a class="btn" href="#new-today">Start with new today</a>
+            <a class="btn-secondary" href="#current-targets">Jump to best current targets</a>
+            <a class="btn-secondary" href="#ready">Open ready-to-apply lane</a>
+          </div>
+          <div class="filter-row" style="margin-top:16px;"><button class="filter-chip is-active" data-filter-chip="all" onclick="setFilter('all')">All</button><button class="filter-chip" data-filter-chip="new-today" onclick="setFilter('new-today')">New</button><button class="filter-chip" data-filter-chip="current-targets" onclick="setFilter('current-targets')">Best current</button><button class="filter-chip" data-filter-chip="preparing" onclick="setFilter('preparing')">Preparing</button><button class="filter-chip" data-filter-chip="ready" onclick="setFilter('ready')">Ready</button><button class="filter-chip" data-filter-chip="blocked" onclick="setFilter('blocked')">Blocked</button><button class="filter-chip" data-filter-chip="submitted" onclick="setFilter('submitted')">Submitted</button></div>
+          <div class="suppression-bar">
+            <div class="inline-note">Hidden by pattern: <strong data-hidden-count>0</strong></div>
+            <div class="inline-note">Suppressed families: <span data-hidden-families>None</span></div>
+            <div><button class="btn-secondary" type="button" onclick="resetHiddenFamilies()">Reset hidden patterns</button></div>
           </div>
         </div>
-        <aside class="panel" aria-label="Latest status">
-          <h2 style="margin-bottom:10px;">Latest snapshot</h2>
+        <aside class="panel" aria-label="Board snapshot">
+          <h2 style="margin-bottom:10px;">Board snapshot</h2>
           <div class="metric-grid" style="margin-top:0; grid-template-columns:repeat(2, minmax(0, 1fr));">
-            <div class="metric"><div class="metric-label">Brief date</div><div class="metric-value" style="font-size:22px;">2026-06-02</div></div>
-            <div class="metric"><div class="metric-label">Reviewed</div><div class="metric-value">0</div></div>
-            <div class="metric"><div class="metric-label">Strong</div><div class="metric-value">0</div></div>
-            <div class="metric"><div class="metric-label">Maybe</div><div class="metric-value">0</div></div>
+            <div class="metric"><div class="metric-label">New today</div><div class="metric-value">2</div><div class="metric-note">Raw scan additions</div></div>
+            <div class="metric"><div class="metric-label">Best current</div><div class="metric-value">8</div><div class="metric-note">Filtered backlog lane</div></div>
+            <div class="metric"><div class="metric-label">Preparing</div><div class="metric-value">6</div><div class="metric-note">Hermes touched, not ready</div></div>
+            <div class="metric"><div class="metric-label">Ready</div><div class="metric-value">0</div><div class="metric-note">Closest to submit</div></div>
           </div>
-          <div class="metric" style="margin-top:10px;"><div class="metric-label">Skip bucket</div><div class="metric-value">0</div><div class="metric-note">Useful for context, not first attention.</div></div>
+          <div class="metric-grid" style="margin-top:10px; grid-template-columns:repeat(2, minmax(0, 1fr));">
+            <div class="metric"><div class="metric-label">Blocked</div><div class="metric-value">5</div></div>
+            <div class="metric"><div class="metric-label">Submitted</div><div class="metric-value">0</div></div>
+          </div>
+          <div class="metric" style="margin-top:10px;"><div class="metric-label">Latest brief</div><div class="metric-value" style="font-size:22px;">2026-06-02</div><div class="metric-note">Daily new-only brief remains available underneath the board.</div></div>
         </aside>
       </div>
     </section>
+    <section class="panel section" id="new-today" data-group="new-today">
+  <div class="section-head">
+    <div class="group-anchor"><h2>New today from scan</h2><span class="badge count">2 roles</span></div>
+    <div class="group-summary">Raw additions first seen on 2026-06-01. This stays separate from backlog on purpose.</div>
+  </div>
+  <div class="roles"><article class="role-card" data-role-card="1" data-role-id="sumup-commercial-e-terrain-ind-pendant-freelance" data-role-family="general">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge count">New today</span>
+        <span class="badge source">SumUp</span>
+        <span class="badge count">Not shortlisted</span>
+        
+      </div>
+      <h3 class="role-title"><a href="https://sumup.com/careers/positions/7875398002?gh_jid=7875398002" target="_blank" rel="noopener noreferrer">SumUp — Commercial(e) Terrain - Indépendant (Freelance)</a></h3>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-06-01</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">General</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://sumup.com/careers/positions/7875398002?gh_jid=7875398002" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+</article> <article class="role-card" data-role-card="1" data-role-id="sumup-commercial-terrain-ind-pendant-freelance" data-role-family="general">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge count">New today</span>
+        <span class="badge source">SumUp</span>
+        <span class="badge count">Not shortlisted</span>
+        
+      </div>
+      <h3 class="role-title"><a href="https://sumup.com/careers/positions/7988604002?gh_jid=7988604002" target="_blank" rel="noopener noreferrer">SumUp — Commercial Terrain - Indépendant (Freelance)</a></h3>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-06-01</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">General</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://sumup.com/careers/positions/7988604002?gh_jid=7988604002" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+</article></div>
+  <p class="inline-note" data-empty-state hidden>Nothing new today.</p>
+</section>
+    <section class="panel section" id="current-targets" data-group="current-targets">
+  <div class="section-head">
+    <div class="group-anchor"><h2>Best current targets</h2><span class="badge count">8 roles</span></div>
+    <div class="group-summary">Live pipeline picks after deep-tech exclusions and fit scoring.</div>
+  </div>
+  <div class="roles"><article class="role-card" data-role-card="1" data-role-id="current-arize-ai-ai-product-manager" data-role-family="product" data-verdict="strong" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;current-board&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/&quot;, &quot;role_id&quot;: &quot;current-arize-ai-ai-product-manager&quot;, &quot;company&quot;: &quot;Arize AI&quot;, &quot;title&quot;: &quot;AI Product Manager&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/arizeai/jobs/5818115004&quot;, &quot;meta&quot;: &quot;Current pipeline · First seen 2026-05-16 · Product&quot;, &quot;fit&quot;: &quot;Direct AI product lane without pretending this is an engineer hire.&quot;, &quot;risk&quot;: &quot;Could still skew PM-at-scale depending on org expectations.&quot;, &quot;verdict&quot;: &quot;strong&quot;, &quot;lane&quot;: &quot;Current pipeline&quot;}">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge strong">Strong</span>
+        <span class="badge count">Backlog</span>
+        <span class="badge source">Current pipeline</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/arizeai/jobs/5818115004" target="_blank" rel="noopener noreferrer">Arize AI — AI Product Manager</a></h3>
+      <div class="role-meta"><span class="meta-pill">Current pipeline</span><span class="meta-pill">First seen 2026-05-16</span><span class="meta-pill">Product</span><span class="meta-pill">Product</span></div>
+      <span class="inline-note">First seen: 2026-05-16</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/arizeai/jobs/5818115004" target="_blank" rel="noopener noreferrer">Open role</a>
+      <button class="action-btn apply" type="button" onclick="setRoleState('current-arize-ai-ai-product-manager', 'apply')">Pursue</button>
+      <button class="action-btn" type="button" onclick="setRoleState('current-arize-ai-ai-product-manager', 'later')">Later</button>
+      <button class="action-btn skip" type="button" onclick="setRoleState('current-arize-ai-ai-product-manager', 'skip')">Skip</button>
+      <button class="action-btn" type="button" onclick="hideRoleFamily('current-arize-ai-ai-product-manager', 'product', 'product')">Hide similar</button>
+    </div>
+  </div>
+  <p class="reason"><strong>Why it’s here:</strong>Direct AI product lane without pretending this is an engineer hire.</p>
+  <div class="action-state" data-role-state="current-arize-ai-ai-product-manager"></div>
+  <details class="role-details">
+    <summary>Risk / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Fit</h4>
+        <p>Direct AI product lane without pretending this is an engineer hire.</p>
+      </div>
+      <div class="detail-box">
+        <h4>Risk</h4>
+        <p>Could still skew PM-at-scale depending on org expectations.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Arize%20AI%20%E2%80%94%20AI%20Product%20Manager&amp;body=%23%23%20Role%0A-%20Company%3A%20Arize%20AI%0A-%20Title%3A%20AI%20Product%20Manager%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/arizeai/jobs/5818115004%0A-%20Brief%20date%3A%20current-board%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
+      <span class="inline-note">GitHub queue requires GitHub login.</span>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="current-intercom-staff-ai-product-manager" data-role-family="product" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;current-board&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/&quot;, &quot;role_id&quot;: &quot;current-intercom-staff-ai-product-manager&quot;, &quot;company&quot;: &quot;Intercom&quot;, &quot;title&quot;: &quot;Staff AI Product Manager&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/intercom/jobs/7377200&quot;, &quot;meta&quot;: &quot;Current pipeline · First seen 2026-05-16 · Product&quot;, &quot;fit&quot;: &quot;Direct AI product lane without pretending this is an engineer hire.&quot;, &quot;risk&quot;: &quot;Could still skew PM-at-scale depending on org expectations.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;Current pipeline&quot;}">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge count">Backlog</span>
+        <span class="badge source">Current pipeline</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/intercom/jobs/7377200" target="_blank" rel="noopener noreferrer">Intercom — Staff AI Product Manager</a></h3>
+      <div class="role-meta"><span class="meta-pill">Current pipeline</span><span class="meta-pill">First seen 2026-05-16</span><span class="meta-pill">Product</span><span class="meta-pill">Product</span></div>
+      <span class="inline-note">First seen: 2026-05-16</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/intercom/jobs/7377200" target="_blank" rel="noopener noreferrer">Open role</a>
+      <button class="action-btn apply" type="button" onclick="setRoleState('current-intercom-staff-ai-product-manager', 'apply')">Pursue</button>
+      <button class="action-btn" type="button" onclick="setRoleState('current-intercom-staff-ai-product-manager', 'later')">Later</button>
+      <button class="action-btn skip" type="button" onclick="setRoleState('current-intercom-staff-ai-product-manager', 'skip')">Skip</button>
+      <button class="action-btn" type="button" onclick="hideRoleFamily('current-intercom-staff-ai-product-manager', 'product', 'product')">Hide similar</button>
+    </div>
+  </div>
+  <p class="reason"><strong>Why it’s here:</strong>Direct AI product lane without pretending this is an engineer hire.</p>
+  <div class="action-state" data-role-state="current-intercom-staff-ai-product-manager"></div>
+  <details class="role-details">
+    <summary>Risk / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Fit</h4>
+        <p>Direct AI product lane without pretending this is an engineer hire.</p>
+      </div>
+      <div class="detail-box">
+        <h4>Risk</h4>
+        <p>Could still skew PM-at-scale depending on org expectations.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Intercom%20%E2%80%94%20Staff%20AI%20Product%20Manager&amp;body=%23%23%20Role%0A-%20Company%3A%20Intercom%0A-%20Title%3A%20Staff%20AI%20Product%20Manager%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/intercom/jobs/7377200%0A-%20Brief%20date%3A%20current-board%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
+      <span class="inline-note">GitHub queue requires GitHub login.</span>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="current-celonis-product-lead-front-office" data-role-family="product" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;current-board&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/&quot;, &quot;role_id&quot;: &quot;current-celonis-product-lead-front-office&quot;, &quot;company&quot;: &quot;Celonis&quot;, &quot;title&quot;: &quot;Product Lead - Front Office&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/celonis/jobs/5928673003?gh_jid=5928673003&quot;, &quot;meta&quot;: &quot;Current pipeline · First seen 2026-05-16 · Product&quot;, &quot;fit&quot;: &quot;Product leadership lane with clearer strategic ownership than presales-heavy roles.&quot;, &quot;risk&quot;: &quot;Seniority bar may still be high.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;Current pipeline&quot;}">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge count">Backlog</span>
+        <span class="badge source">Current pipeline</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/5928673003?gh_jid=5928673003" target="_blank" rel="noopener noreferrer">Celonis — Product Lead - Front Office</a></h3>
+      <div class="role-meta"><span class="meta-pill">Current pipeline</span><span class="meta-pill">First seen 2026-05-16</span><span class="meta-pill">Product</span><span class="meta-pill">Product</span></div>
+      <span class="inline-note">First seen: 2026-05-16</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/5928673003?gh_jid=5928673003" target="_blank" rel="noopener noreferrer">Open role</a>
+      <button class="action-btn apply" type="button" onclick="setRoleState('current-celonis-product-lead-front-office', 'apply')">Pursue</button>
+      <button class="action-btn" type="button" onclick="setRoleState('current-celonis-product-lead-front-office', 'later')">Later</button>
+      <button class="action-btn skip" type="button" onclick="setRoleState('current-celonis-product-lead-front-office', 'skip')">Skip</button>
+      <button class="action-btn" type="button" onclick="hideRoleFamily('current-celonis-product-lead-front-office', 'product', 'product')">Hide similar</button>
+    </div>
+  </div>
+  <p class="reason"><strong>Why it’s here:</strong>Product leadership lane with clearer strategic ownership than presales-heavy roles.</p>
+  <div class="action-state" data-role-state="current-celonis-product-lead-front-office"></div>
+  <details class="role-details">
+    <summary>Risk / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Fit</h4>
+        <p>Product leadership lane with clearer strategic ownership than presales-heavy roles.</p>
+      </div>
+      <div class="detail-box">
+        <h4>Risk</h4>
+        <p>Seniority bar may still be high.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Celonis%20%E2%80%94%20Product%20Lead%20-%20Front%20Office&amp;body=%23%23%20Role%0A-%20Company%3A%20Celonis%0A-%20Title%3A%20Product%20Lead%20-%20Front%20Office%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/celonis/jobs/5928673003%3Fgh_jid%3D5928673003%0A-%20Brief%20date%3A%20current-board%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
+      <span class="inline-note">GitHub queue requires GitHub login.</span>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="current-celonis-applied-value-engineer" data-role-family="value" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;current-board&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/&quot;, &quot;role_id&quot;: &quot;current-celonis-applied-value-engineer&quot;, &quot;company&quot;: &quot;Celonis&quot;, &quot;title&quot;: &quot;Applied Value Engineer&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/celonis/jobs/7635542003?gh_jid=7635542003&quot;, &quot;meta&quot;: &quot;Current pipeline · First seen 2026-05-16 · Value&quot;, &quot;fit&quot;: &quot;Closer to deployment strategy / outcomes than to implementation trench work.&quot;, &quot;risk&quot;: &quot;Can still drift into technical delivery depth.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;Current pipeline&quot;}">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge count">Backlog</span>
+        <span class="badge source">Current pipeline</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/7635542003?gh_jid=7635542003" target="_blank" rel="noopener noreferrer">Celonis — Applied Value Engineer</a></h3>
+      <div class="role-meta"><span class="meta-pill">Current pipeline</span><span class="meta-pill">First seen 2026-05-16</span><span class="meta-pill">Value</span><span class="meta-pill">Value</span></div>
+      <span class="inline-note">First seen: 2026-05-16</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/7635542003?gh_jid=7635542003" target="_blank" rel="noopener noreferrer">Open role</a>
+      <button class="action-btn apply" type="button" onclick="setRoleState('current-celonis-applied-value-engineer', 'apply')">Pursue</button>
+      <button class="action-btn" type="button" onclick="setRoleState('current-celonis-applied-value-engineer', 'later')">Later</button>
+      <button class="action-btn skip" type="button" onclick="setRoleState('current-celonis-applied-value-engineer', 'skip')">Skip</button>
+      <button class="action-btn" type="button" onclick="hideRoleFamily('current-celonis-applied-value-engineer', 'value', 'value')">Hide similar</button>
+    </div>
+  </div>
+  <p class="reason"><strong>Why it’s here:</strong>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+  <div class="action-state" data-role-state="current-celonis-applied-value-engineer"></div>
+  <details class="role-details">
+    <summary>Risk / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Fit</h4>
+        <p>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+      </div>
+      <div class="detail-box">
+        <h4>Risk</h4>
+        <p>Can still drift into technical delivery depth.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Celonis%20%E2%80%94%20Applied%20Value%20Engineer&amp;body=%23%23%20Role%0A-%20Company%3A%20Celonis%0A-%20Title%3A%20Applied%20Value%20Engineer%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/celonis/jobs/7635542003%3Fgh_jid%3D7635542003%0A-%20Brief%20date%3A%20current-board%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
+      <span class="inline-note">GitHub queue requires GitHub login.</span>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="current-celonis-applied-value-engineer-healthcare-life-sciences" data-role-family="value" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;current-board&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/&quot;, &quot;role_id&quot;: &quot;current-celonis-applied-value-engineer-healthcare-life-sciences&quot;, &quot;company&quot;: &quot;Celonis&quot;, &quot;title&quot;: &quot;Applied Value Engineer (Healthcare &amp; Life Sciences)&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/celonis/jobs/7635294003?gh_jid=7635294003&quot;, &quot;meta&quot;: &quot;Current pipeline · First seen 2026-05-16 · Value&quot;, &quot;fit&quot;: &quot;Closer to deployment strategy / outcomes than to implementation trench work.&quot;, &quot;risk&quot;: &quot;Can still drift into technical delivery depth.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;Current pipeline&quot;}">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge count">Backlog</span>
+        <span class="badge source">Current pipeline</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/7635294003?gh_jid=7635294003" target="_blank" rel="noopener noreferrer">Celonis — Applied Value Engineer (Healthcare &amp; Life Sciences)</a></h3>
+      <div class="role-meta"><span class="meta-pill">Current pipeline</span><span class="meta-pill">First seen 2026-05-16</span><span class="meta-pill">Value</span><span class="meta-pill">Value</span></div>
+      <span class="inline-note">First seen: 2026-05-16</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/7635294003?gh_jid=7635294003" target="_blank" rel="noopener noreferrer">Open role</a>
+      <button class="action-btn apply" type="button" onclick="setRoleState('current-celonis-applied-value-engineer-healthcare-life-sciences', 'apply')">Pursue</button>
+      <button class="action-btn" type="button" onclick="setRoleState('current-celonis-applied-value-engineer-healthcare-life-sciences', 'later')">Later</button>
+      <button class="action-btn skip" type="button" onclick="setRoleState('current-celonis-applied-value-engineer-healthcare-life-sciences', 'skip')">Skip</button>
+      <button class="action-btn" type="button" onclick="hideRoleFamily('current-celonis-applied-value-engineer-healthcare-life-sciences', 'value', 'value')">Hide similar</button>
+    </div>
+  </div>
+  <p class="reason"><strong>Why it’s here:</strong>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+  <div class="action-state" data-role-state="current-celonis-applied-value-engineer-healthcare-life-sciences"></div>
+  <details class="role-details">
+    <summary>Risk / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Fit</h4>
+        <p>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+      </div>
+      <div class="detail-box">
+        <h4>Risk</h4>
+        <p>Can still drift into technical delivery depth.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Celonis%20%E2%80%94%20Applied%20Value%20Engineer%20%28Healthcare%20%26%20Life%20Sciences%29&amp;body=%23%23%20Role%0A-%20Company%3A%20Celonis%0A-%20Title%3A%20Applied%20Value%20Engineer%20%28Healthcare%20%26%20Life%20Sciences%29%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/celonis/jobs/7635294003%3Fgh_jid%3D7635294003%0A-%20Brief%20date%3A%20current-board%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
+      <span class="inline-note">GitHub queue requires GitHub login.</span>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="current-celonis-applied-value-engineer-healthcare-lifesciences" data-role-family="value" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;current-board&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/&quot;, &quot;role_id&quot;: &quot;current-celonis-applied-value-engineer-healthcare-lifesciences&quot;, &quot;company&quot;: &quot;Celonis&quot;, &quot;title&quot;: &quot;Applied Value Engineer|Healthcare &amp; Lifesciences&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/celonis/jobs/7635114003?gh_jid=7635114003&quot;, &quot;meta&quot;: &quot;Current pipeline · First seen 2026-05-16 · Value&quot;, &quot;fit&quot;: &quot;Closer to deployment strategy / outcomes than to implementation trench work.&quot;, &quot;risk&quot;: &quot;Can still drift into technical delivery depth.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;Current pipeline&quot;}">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge count">Backlog</span>
+        <span class="badge source">Current pipeline</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/7635114003?gh_jid=7635114003" target="_blank" rel="noopener noreferrer">Celonis — Applied Value Engineer|Healthcare &amp; Lifesciences</a></h3>
+      <div class="role-meta"><span class="meta-pill">Current pipeline</span><span class="meta-pill">First seen 2026-05-16</span><span class="meta-pill">Value</span><span class="meta-pill">Value</span></div>
+      <span class="inline-note">First seen: 2026-05-16</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/7635114003?gh_jid=7635114003" target="_blank" rel="noopener noreferrer">Open role</a>
+      <button class="action-btn apply" type="button" onclick="setRoleState('current-celonis-applied-value-engineer-healthcare-lifesciences', 'apply')">Pursue</button>
+      <button class="action-btn" type="button" onclick="setRoleState('current-celonis-applied-value-engineer-healthcare-lifesciences', 'later')">Later</button>
+      <button class="action-btn skip" type="button" onclick="setRoleState('current-celonis-applied-value-engineer-healthcare-lifesciences', 'skip')">Skip</button>
+      <button class="action-btn" type="button" onclick="hideRoleFamily('current-celonis-applied-value-engineer-healthcare-lifesciences', 'value', 'value')">Hide similar</button>
+    </div>
+  </div>
+  <p class="reason"><strong>Why it’s here:</strong>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+  <div class="action-state" data-role-state="current-celonis-applied-value-engineer-healthcare-lifesciences"></div>
+  <details class="role-details">
+    <summary>Risk / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Fit</h4>
+        <p>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+      </div>
+      <div class="detail-box">
+        <h4>Risk</h4>
+        <p>Can still drift into technical delivery depth.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Celonis%20%E2%80%94%20Applied%20Value%20Engineer%7CHealthcare%20%26%20Lifesciences&amp;body=%23%23%20Role%0A-%20Company%3A%20Celonis%0A-%20Title%3A%20Applied%20Value%20Engineer%7CHealthcare%20%26%20Lifesciences%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/celonis/jobs/7635114003%3Fgh_jid%3D7635114003%0A-%20Brief%20date%3A%20current-board%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
+      <span class="inline-note">GitHub queue requires GitHub login.</span>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="current-celonis-associate-value-engineer-ai-driven-data-science-analytics-orbit-program" data-role-family="value" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;current-board&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/&quot;, &quot;role_id&quot;: &quot;current-celonis-associate-value-engineer-ai-driven-data-science-analytics-orbit-program&quot;, &quot;company&quot;: &quot;Celonis&quot;, &quot;title&quot;: &quot;Associate Value Engineer (AI-Driven Data Science &amp; Analytics) - Orbit Program&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/celonis/jobs/7627647003?gh_jid=7627647003&quot;, &quot;meta&quot;: &quot;Current pipeline · First seen 2026-05-16 · Value&quot;, &quot;fit&quot;: &quot;Closer to deployment strategy / outcomes than to implementation trench work.&quot;, &quot;risk&quot;: &quot;Can still drift into technical delivery depth.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;Current pipeline&quot;}">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge count">Backlog</span>
+        <span class="badge source">Current pipeline</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/7627647003?gh_jid=7627647003" target="_blank" rel="noopener noreferrer">Celonis — Associate Value Engineer (AI-Driven Data Science &amp; Analytics) - Orbit Program</a></h3>
+      <div class="role-meta"><span class="meta-pill">Current pipeline</span><span class="meta-pill">First seen 2026-05-16</span><span class="meta-pill">Value</span><span class="meta-pill">Value</span></div>
+      <span class="inline-note">First seen: 2026-05-16</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/7627647003?gh_jid=7627647003" target="_blank" rel="noopener noreferrer">Open role</a>
+      <button class="action-btn apply" type="button" onclick="setRoleState('current-celonis-associate-value-engineer-ai-driven-data-science-analytics-orbit-program', 'apply')">Pursue</button>
+      <button class="action-btn" type="button" onclick="setRoleState('current-celonis-associate-value-engineer-ai-driven-data-science-analytics-orbit-program', 'later')">Later</button>
+      <button class="action-btn skip" type="button" onclick="setRoleState('current-celonis-associate-value-engineer-ai-driven-data-science-analytics-orbit-program', 'skip')">Skip</button>
+      <button class="action-btn" type="button" onclick="hideRoleFamily('current-celonis-associate-value-engineer-ai-driven-data-science-analytics-orbit-program', 'value', 'value')">Hide similar</button>
+    </div>
+  </div>
+  <p class="reason"><strong>Why it’s here:</strong>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+  <div class="action-state" data-role-state="current-celonis-associate-value-engineer-ai-driven-data-science-analytics-orbit-program"></div>
+  <details class="role-details">
+    <summary>Risk / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Fit</h4>
+        <p>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+      </div>
+      <div class="detail-box">
+        <h4>Risk</h4>
+        <p>Can still drift into technical delivery depth.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Celonis%20%E2%80%94%20Associate%20Value%20Engineer%20%28AI-Driven%20Data%20Science%20%26%20Analytics%29%20-%20Orbit%20Program&amp;body=%23%23%20Role%0A-%20Company%3A%20Celonis%0A-%20Title%3A%20Associate%20Value%20Engineer%20%28AI-Driven%20Data%20Science%20%26%20Analytics%29%20-%20Orbit%20Program%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/celonis/jobs/7627647003%3Fgh_jid%3D7627647003%0A-%20Brief%20date%3A%20current-board%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
+      <span class="inline-note">GitHub queue requires GitHub login.</span>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="current-celonis-customer-value-engineer" data-role-family="value" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;current-board&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/&quot;, &quot;role_id&quot;: &quot;current-celonis-customer-value-engineer&quot;, &quot;company&quot;: &quot;Celonis&quot;, &quot;title&quot;: &quot;Customer Value Engineer&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/celonis/jobs/7709318003?gh_jid=7709318003&quot;, &quot;meta&quot;: &quot;Current pipeline · First seen 2026-05-16 · Value&quot;, &quot;fit&quot;: &quot;Closer to deployment strategy / outcomes than to implementation trench work.&quot;, &quot;risk&quot;: &quot;Can still drift into technical delivery depth.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;Current pipeline&quot;}">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge count">Backlog</span>
+        <span class="badge source">Current pipeline</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/7709318003?gh_jid=7709318003" target="_blank" rel="noopener noreferrer">Celonis — Customer Value Engineer</a></h3>
+      <div class="role-meta"><span class="meta-pill">Current pipeline</span><span class="meta-pill">First seen 2026-05-16</span><span class="meta-pill">Value</span><span class="meta-pill">Value</span></div>
+      <span class="inline-note">First seen: 2026-05-16</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/7709318003?gh_jid=7709318003" target="_blank" rel="noopener noreferrer">Open role</a>
+      <button class="action-btn apply" type="button" onclick="setRoleState('current-celonis-customer-value-engineer', 'apply')">Pursue</button>
+      <button class="action-btn" type="button" onclick="setRoleState('current-celonis-customer-value-engineer', 'later')">Later</button>
+      <button class="action-btn skip" type="button" onclick="setRoleState('current-celonis-customer-value-engineer', 'skip')">Skip</button>
+      <button class="action-btn" type="button" onclick="hideRoleFamily('current-celonis-customer-value-engineer', 'value', 'value')">Hide similar</button>
+    </div>
+  </div>
+  <p class="reason"><strong>Why it’s here:</strong>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+  <div class="action-state" data-role-state="current-celonis-customer-value-engineer"></div>
+  <details class="role-details">
+    <summary>Risk / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Fit</h4>
+        <p>Closer to deployment strategy / outcomes than to implementation trench work.</p>
+      </div>
+      <div class="detail-box">
+        <h4>Risk</h4>
+        <p>Can still drift into technical delivery depth.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Celonis%20%E2%80%94%20Customer%20Value%20Engineer&amp;body=%23%23%20Role%0A-%20Company%3A%20Celonis%0A-%20Title%3A%20Customer%20Value%20Engineer%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/celonis/jobs/7709318003%3Fgh_jid%3D7709318003%0A-%20Brief%20date%3A%20current-board%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
+      <span class="inline-note">GitHub queue requires GitHub login.</span>
+    </div>
+  </details>
+</article></div>
+  <p class="inline-note" data-empty-state></p>
+</section>
+    <section class="panel section" id="preparing" data-group="preparing">
+  <div class="section-head">
+    <div class="group-anchor"><h2>Hermes preparing</h2><span class="badge count">6 roles</span></div>
+    <div class="group-summary">Roles already in motion: JD checked, form checked, or pack partly prepared.</div>
+  </div>
+  <div class="roles"><article class="role-card" data-role-card="1" data-role-id="ops-glean-ai-outcomes-manager-london" data-role-family="value" data-verdict="strong">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge strong">Strong</span>
+        <span class="badge state">Prepared, waiting on blockers</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/gleanwork/jobs/4613925005" target="_blank" rel="noopener noreferrer">Glean - AI Outcomes Manager, London</a></h3>
+      <div class="role-meta"><span class="meta-pill">supervised_final_step</span><span class="meta-pill">captcha+email_security_code</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/gleanwork/jobs/4613925005" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Resume exported. Submission attempt hit Greenhouse captcha-failed -&gt; email security code required at aram@empy.ai. Must complete the code + submit in the same browser session or request a fresh code manually</p>
+  <div class="action-state" data-role-state="ops-glean-ai-outcomes-manager-london"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-16-glean-ai-outcomes-manager-london-apply-pack.md; reports/apply/2026-05-16-glean-ai-outcomes-manager-london-tailored-resume.md; output/2026-05-16-glean-ai-outcomes-manager-london-resume.pdf</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="ops-celonis-senior-applied-ai-solutions-consultant" data-role-family="general" data-verdict="strong">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge strong">Strong</span>
+        <span class="badge state">Prepared, waiting on blockers</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/7661696003" target="_blank" rel="noopener noreferrer">Celonis - Senior Applied AI Solutions Consultant</a></h3>
+      <div class="role-meta"><span class="meta-pill">supervised_final_step</span><span class="meta-pill">captcha+email_security_code</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/7661696003" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Resume exported. Submission attempt hit Greenhouse captcha-failed -&gt; email security code required at aram@empy.ai. Must complete the code + submit in the same browser session or request a fresh code manually</p>
+  <div class="action-state" data-role-state="ops-celonis-senior-applied-ai-solutions-consultant"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-celonis-senior-applied-ai-solutions-consultant-apply-pack.md; reports/apply/2026-05-17-celonis-senior-applied-ai-solutions-consultant-tailored-resume.md; output/2026-05-17-celonis-senior-applied-ai-solutions-consultant-resume.pdf</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="ops-intercom-fin-product-manager" data-role-family="product" data-verdict="maybe">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge state">Prepared, waiting on blockers</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/intercom/jobs/5663703" target="_blank" rel="noopener noreferrer">Intercom / Fin - Product Manager</a></h3>
+      <div class="role-meta"><span class="meta-pill">supervised_final_step</span><span class="meta-pill">form_validation+visa_question</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/intercom/jobs/5663703" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Resume exported. Known: UK work authorization = no; sponsorship needed; open to London hybrid/relocation if employer covers legalization. Submission prep is blocked by Intercom Greenhouse current-location combobox validation, plus optional final values answer / supervised submit</p>
+  <div class="action-state" data-role-state="ops-intercom-fin-product-manager"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-intercom-product-manager-apply-pack.md; reports/apply/2026-05-17-intercom-product-manager-tailored-resume.md; output/2026-05-17-intercom-product-manager-resume.pdf</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="ops-glean-product-manager-ai-quality" data-role-family="product" data-verdict="maybe">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge state">Prepared, waiting on blockers</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/gleanwork/jobs/4694764005" target="_blank" rel="noopener noreferrer">Glean - Product Manager, AI Quality</a></h3>
+      <div class="role-meta"><span class="meta-pill">manual_only</span><span class="meta-pill">priority+calibration_risk</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/gleanwork/jobs/4694764005" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Resume exported. Lower-priority stretch; unresolved Bay Area hybrid/JD-vs-form mismatch plus PM-calibration risk kept this out of tonight's submit attempts</p>
+  <div class="action-state" data-role-state="ops-glean-product-manager-ai-quality"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-glean-product-manager-ai-quality-apply-pack.md; reports/apply/2026-05-17-glean-product-manager-ai-quality-tailored-resume.md; output/2026-05-17-glean-product-manager-ai-quality-resume.pdf</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="ops-intercom-fin-staff-ai-product-manager" data-role-family="product" data-verdict="maybe">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge state">Prepared, waiting on blockers</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/intercom/jobs/7464294" target="_blank" rel="noopener noreferrer">Intercom / Fin - Staff AI Product Manager</a></h3>
+      <div class="role-meta"><span class="meta-pill">manual_only</span><span class="meta-pill">missing_asset+visa_question</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/intercom/jobs/7464294" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Known: Germany work authorization = no; sponsorship needed; open to Berlin hybrid/relocation if employer covers legalization. Remaining blocker: no final tailored resume export yet, plus lower-priority stretch vs stronger roles</p>
+  <div class="action-state" data-role-state="ops-intercom-fin-staff-ai-product-manager"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-intercom-staff-ai-product-manager-apply-pack.md</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="ops-overview-ai-gtm-operations-lead" data-role-family="ops" data-verdict="maybe">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge state">Prepared, waiting on blockers</span>
+      </div>
+      <h3 class="role-title"><a href="https://www.ycombinator.com/companies/overview/jobs/5oQK2VP-ai-gtm-operations-lead" target="_blank" rel="noopener noreferrer">Overview - AI GTM Operations Lead</a></h3>
+      <div class="role-meta"><span class="meta-pill">supervised_final_step</span><span class="meta-pill">captcha+visa_question</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://www.ycombinator.com/companies/overview/jobs/5oQK2VP-ai-gtm-operations-lead" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Resume exported. Known: US work authorization = no; sponsorship needed; open to relocation/hybrid if relocation + legalization are covered. Remaining blocker: supervised YC hCaptcha/manual submit</p>
+  <div class="action-state" data-role-state="ops-overview-ai-gtm-operations-lead"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-overview-ai-gtm-operations-lead-apply-pack.md; reports/apply/2026-05-17-overview-ai-gtm-operations-lead-tailored-resume.md; jds/2026-05-17-overview-ai-gtm-operations-lead.md; output/2026-05-17-overview-ai-gtm-operations-lead-resume.pdf</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article></div>
+  <p class="inline-note" data-empty-state></p>
+</section>
+    <section class="panel section" id="ready" data-group="ready">
+  <div class="section-head">
+    <div class="group-anchor"><h2>Ready to apply</h2><span class="badge count">0 roles</span></div>
+    <div class="group-summary">Closest thing to a next-shot queue. Open these first when you want submission throughput.</div>
+  </div>
+  <div class="roles"></div>
+  <p class="inline-note" data-empty-state>Nothing here right now.</p>
+</section>
+    <section class="panel section" id="blocked" data-group="blocked">
+  <div class="section-head">
+    <div class="group-anchor"><h2>Blocked</h2><span class="badge count">5 roles</span></div>
+    <div class="group-summary">Useful only when the blocker is worth unblocking. Otherwise leave it buried.</div>
+  </div>
+  <div class="roles"><article class="role-card" data-role-card="1" data-role-id="ops-credal-ai-founding-gtm-deployment-strategist" data-role-family="value" data-verdict="maybe">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge state">Blocked</span>
+      </div>
+      <h3 class="role-title"><a href="https://www.ycombinator.com/companies/credal-ai/jobs/3OnqAVU-founding-gtm-deployment-strategist" target="_blank" rel="noopener noreferrer">Credal.ai - Founding GTM - Deployment Strategist</a></h3>
+      <div class="role-meta"><span class="meta-pill">blocked_by_policy</span><span class="meta-pill">work_auth_hard_gate+captcha</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://www.ycombinator.com/companies/credal-ai/jobs/3OnqAVU-founding-gtm-deployment-strategist" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Resume exported, but the live YC flow is still hard-blocked by explicit US work-authorization gating plus supervised hCaptcha</p>
+  <div class="action-state" data-role-state="ops-credal-ai-founding-gtm-deployment-strategist"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-credal-ai-founding-gtm-deployment-strategist-apply-pack.md; reports/apply/2026-05-17-credal-ai-founding-gtm-deployment-strategist-tailored-resume.md; output/2026-05-17-credal-ai-founding-gtm-deployment-strategist-resume.pdf</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="ops-soff-founding-ai-product-manager" data-role-family="product" data-verdict="maybe">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge state">Blocked</span>
+      </div>
+      <h3 class="role-title"><a href="#" target="_blank" rel="noopener noreferrer">Soff - Founding AI Product Manager</a></h3>
+      <div class="role-meta"><span class="meta-pill">blocked_by_policy</span><span class="meta-pill">work_auth_hard_gate+onsite_logistics</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="#" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Directionally relevant applied-AI/founding-PM lane, but live form shows explicit US work-authorization gating and likely SF onsite intensity</p>
+  <div class="action-state" data-role-state="ops-soff-founding-ai-product-manager"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-soff-founding-ai-product-manager-apply-pack.md</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="ops-glimpse-deployment-strategist" data-role-family="value" data-verdict="maybe">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge state">Blocked</span>
+      </div>
+      <h3 class="role-title"><a href="#" target="_blank" rel="noopener noreferrer">Glimpse - Deployment Strategist</a></h3>
+      <div class="role-meta"><span class="meta-pill">blocked_by_policy</span><span class="meta-pill">work_auth_hard_gate+onsite_logistics+missing_asset</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="#" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Live YC form verified; role has some applied-AI/customer-deployment fit, but blockers are US work authorization/sponsorship, NYC in-person practicality, implementation-heavy calibration risk, and missing final resume upload asset</p>
+  <div class="action-state" data-role-state="ops-glimpse-deployment-strategist"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-glimpse-deployment-strategist-apply-pack.md</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="ops-anthropic-applied-ai-architect-startups" data-role-family="general" data-verdict="maybe">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge maybe">Maybe</span>
+        <span class="badge state">Blocked</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/anthropic/jobs/5193973008" target="_blank" rel="noopener noreferrer">Anthropic - Applied AI Architect, Startups</a></h3>
+      <div class="role-meta"><span class="meta-pill">blocked_by_policy</span><span class="meta-pill">visa_question+calibration_risk+missing_asset</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/anthropic/jobs/5193973008" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Known: Ireland work authorization = no; open to Dublin hybrid/relocation if relocation + legalization are covered. Remaining blockers: technical-calibration go/no-go and final resume export/upload asset</p>
+  <div class="action-state" data-role-state="ops-anthropic-applied-ai-architect-startups"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-anthropic-applied-ai-architect-startups-apply-pack.md; jds/2026-05-17-anthropic-applied-ai-architect-startups.md</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article>
+<article class="role-card" data-role-card="1" data-role-id="ops-arize-ai-partner-product-solutions-lead" data-role-family="partnerships" data-verdict="skip">
+  <div class="role-top">
+    <div>
+      <div class="role-meta">
+        <span class="badge skip">Skip</span>
+        <span class="badge state">Blocked</span>
+      </div>
+      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/arizeai/jobs/5978967004" target="_blank" rel="noopener noreferrer">Arize AI - Partner Product &amp; Solutions Lead</a></h3>
+      <div class="role-meta"><span class="meta-pill">blocked_by_policy</span><span class="meta-pill">work_auth_hard_gate+calibration_risk+missing_asset</span></div>
+    </div>
+    <div class="card-actions">
+      <a class="btn" href="https://job-boards.greenhouse.io/arizeai/jobs/5978967004" target="_blank" rel="noopener noreferrer">Open role</a>
+    </div>
+  </div>
+  <p class="reason"><strong>Current state:</strong>Known: US work authorization = no; sponsorship needed. Still blocked on technical-calibration risk and missing final resume upload asset</p>
+  <div class="action-state" data-role-state="ops-arize-ai-partner-product-solutions-lead"></div>
+  <details class="role-details">
+    <summary>Assets / details</summary>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <h4>Assets</h4>
+        <p>reports/apply/2026-05-17-arize-ai-partner-product-solutions-lead-apply-pack.md; jds/2026-05-17-arize-ai-partner-product-solutions-lead.md</p>
+      </div>
+      <div class="detail-box">
+        <h4>Human handoff</h4>
+        <p>Yes</p>
+      </div>
+    </div>
+  </details>
+</article></div>
+  <p class="inline-note" data-empty-state></p>
+</section>
+    <section class="panel section" id="submitted" data-group="submitted">
+  <div class="section-head">
+    <div class="group-anchor"><h2>Recently submitted</h2><span class="badge count">0 roles</span></div>
+    <div class="group-summary">Closed execution lane so you can see momentum without reopening the work.</div>
+  </div>
+  <div class="roles"></div>
+  <p class="inline-note" data-empty-state>Nothing here right now.</p>
+</section>
     <section class="panel section">
-      <div class="section-head"><h2>Archive</h2><div class="inline-note">Each row carries enough signal to decide whether you need to reopen that day.</div></div>
+      <div class="section-head"><h2>Archive</h2><div class="inline-note">Daily new-only briefs stay available underneath the working feed.</div></div>
       <div class="archive-list"><div class="archive-item">
   <div>
     <h3 style="margin:0 0 6px;">2026-06-02</h3>
@@ -355,99 +1098,164 @@ details.role-details summary::-webkit-details-marker { display: none; }
   <div class="archive-actions">
     <a class="btn-secondary" href="./archive/2026-05-23/">Open brief</a>
   </div>
-</div><div class="archive-item">
-  <div>
-    <h3 style="margin:0 0 6px;">2026-05-22</h3>
-    <div class="archive-meta">
-      <span class="meta-pill">1 roles</span>
-      <span class="meta-pill">0 strong</span>
-      <span class="meta-pill">0 maybe</span>
-      <span class="meta-pill">1 skip</span>
-    </div>
-  </div>
-  <div class="archive-actions">
-    <a class="btn-secondary" href="./archive/2026-05-22/">Open brief</a>
-  </div>
-</div><div class="archive-item">
-  <div>
-    <h3 style="margin:0 0 6px;">2026-05-21</h3>
-    <div class="archive-meta">
-      <span class="meta-pill">3 roles</span>
-      <span class="meta-pill">0 strong</span>
-      <span class="meta-pill">2 maybe</span>
-      <span class="meta-pill">1 skip</span>
-    </div>
-  </div>
-  <div class="archive-actions">
-    <a class="btn-secondary" href="./archive/2026-05-21/">Open brief</a>
-  </div>
-</div><div class="archive-item">
-  <div>
-    <h3 style="margin:0 0 6px;">2026-05-20</h3>
-    <div class="archive-meta">
-      <span class="meta-pill">1 roles</span>
-      <span class="meta-pill">0 strong</span>
-      <span class="meta-pill">1 maybe</span>
-      <span class="meta-pill">0 skip</span>
-    </div>
-  </div>
-  <div class="archive-actions">
-    <a class="btn-secondary" href="./archive/2026-05-20/">Open brief</a>
-  </div>
-</div><div class="archive-item">
-  <div>
-    <h3 style="margin:0 0 6px;">2026-05-19</h3>
-    <div class="archive-meta">
-      <span class="meta-pill">2 roles</span>
-      <span class="meta-pill">0 strong</span>
-      <span class="meta-pill">1 maybe</span>
-      <span class="meta-pill">1 skip</span>
-    </div>
-  </div>
-  <div class="archive-actions">
-    <a class="btn-secondary" href="./archive/2026-05-19/">Open brief</a>
-  </div>
-</div><div class="archive-item">
-  <div>
-    <h3 style="margin:0 0 6px;">2026-05-18</h3>
-    <div class="archive-meta">
-      <span class="meta-pill">0 roles</span>
-      <span class="meta-pill">0 strong</span>
-      <span class="meta-pill">0 maybe</span>
-      <span class="meta-pill">0 skip</span>
-    </div>
-  </div>
-  <div class="archive-actions">
-    <a class="btn-secondary" href="./archive/2026-05-18/">Open brief</a>
-  </div>
-</div><div class="archive-item">
-  <div>
-    <h3 style="margin:0 0 6px;">2026-05-17</h3>
-    <div class="archive-meta">
-      <span class="meta-pill">0 roles</span>
-      <span class="meta-pill">0 strong</span>
-      <span class="meta-pill">0 maybe</span>
-      <span class="meta-pill">0 skip</span>
-    </div>
-  </div>
-  <div class="archive-actions">
-    <a class="btn-secondary" href="./archive/2026-05-17/">Open brief</a>
-  </div>
-</div><div class="archive-item">
-  <div>
-    <h3 style="margin:0 0 6px;">2026-05-16</h3>
-    <div class="archive-meta">
-      <span class="meta-pill">6 roles</span>
-      <span class="meta-pill">2 strong</span>
-      <span class="meta-pill">2 maybe</span>
-      <span class="meta-pill">2 skip</span>
-    </div>
-  </div>
-  <div class="archive-actions">
-    <a class="btn-secondary" href="./archive/2026-05-16/">Open brief</a>
-  </div>
 </div></div>
     </section>
   </div>
+  
+<script>
+const HERMES_PURSUE_WEBHOOK = "https://modifications-move-little-work.trycloudflare.com/webhooks/job-brief-apply-36ad777992fe";
+const HIDDEN_FAMILIES_KEY = 'job-brief:hidden-families';
+function pursueStatusText(queued) {
+  return queued
+    ? "Queued for Hermes. I'll pick it up from this thread."
+    : 'Saved locally as pursue. Hermes queue ping failed, so this one is only local for now.';
+}
+function localStateText(state) {
+  if (state === 'later') return 'Saved locally for later review.';
+  if (state === 'skip') return 'Saved locally as skip.';
+  return '';
+}
+function getHiddenFamilies() {
+  try {
+    return JSON.parse(localStorage.getItem(HIDDEN_FAMILIES_KEY) || '[]');
+  } catch (err) {
+    return [];
+  }
+}
+function setHiddenFamilies(families) {
+  localStorage.setItem(HIDDEN_FAMILIES_KEY, JSON.stringify(families));
+}
+function sendPursueWebhook(roleId) {
+  const card = document.querySelector('[data-role-id="' + roleId + '"]');
+  if (!card || !HERMES_PURSUE_WEBHOOK) return false;
+  const raw = card.getAttribute('data-webhook-payload');
+  if (!raw) return false;
+  let payload;
+  try {
+    payload = JSON.parse(raw);
+  } catch (err) {
+    console.error('Bad webhook payload', err);
+    return false;
+  }
+  payload.action = 'pursue';
+  payload.clicked_at = new Date().toISOString();
+  const body = JSON.stringify(payload);
+  try {
+    if (navigator.sendBeacon) {
+      const ok = navigator.sendBeacon(
+        HERMES_PURSUE_WEBHOOK,
+        new Blob([body], { type: 'text/plain;charset=UTF-8' })
+      );
+      if (ok) return true;
+    }
+  } catch (err) {
+    console.warn('sendBeacon failed', err);
+  }
+  try {
+    fetch(HERMES_PURSUE_WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body,
+      keepalive: true,
+    });
+    return true;
+  } catch (err) {
+    console.warn('fetch fallback failed', err);
+    return false;
+  }
+}
+function setRoleState(roleId, state) {
+  const key = 'job-brief:' + roleId;
+  localStorage.setItem(key, state);
+  const card = document.querySelector('[data-role-id="' + roleId + '"]');
+  const label = document.querySelector('[data-role-state="' + roleId + '"]');
+  if (card) card.setAttribute('data-local-state', state);
+  if (state === 'apply') {
+    const sentKey = 'job-brief:webhook-sent:' + roleId;
+    const alreadyQueued = localStorage.getItem(sentKey) === '1';
+    const queued = alreadyQueued ? true : sendPursueWebhook(roleId);
+    if (queued) localStorage.setItem(sentKey, '1');
+    if (label) label.textContent = pursueStatusText(queued);
+  } else if (label) {
+    label.textContent = localStateText(state);
+  }
+  applyVisibility();
+}
+function hideRoleFamily(roleId, family, labelText) {
+  if (!family) return;
+  const families = getHiddenFamilies();
+  if (!families.includes(family)) {
+    families.push(family);
+    setHiddenFamilies(families);
+  }
+  const label = document.querySelector('[data-role-state="' + roleId + '"]');
+  if (label) label.textContent = 'Hidden similar roles: ' + labelText + '.';
+  applyVisibility();
+}
+function resetHiddenFamilies() {
+  localStorage.removeItem(HIDDEN_FAMILIES_KEY);
+  applyVisibility();
+}
+function applySavedStates() {
+  document.querySelectorAll('[data-role-id]').forEach((card) => {
+    const roleId = card.getAttribute('data-role-id');
+    const state = localStorage.getItem('job-brief:' + roleId);
+    if (!state) return;
+    card.setAttribute('data-local-state', state);
+    const label = document.querySelector('[data-role-state="' + roleId + '"]');
+    if (!label) return;
+    if (state === 'apply') {
+      const queued = localStorage.getItem('job-brief:webhook-sent:' + roleId) === '1';
+      label.textContent = pursueStatusText(queued);
+    } else {
+      label.textContent = localStateText(state);
+    }
+  });
+}
+function activeFilter() {
+  const chip = document.querySelector('[data-filter-chip].is-active');
+  return chip ? chip.getAttribute('data-filter-chip') : 'all';
+}
+function setFilter(mode) {
+  document.querySelectorAll('[data-filter-chip]').forEach((chip) => {
+    chip.classList.toggle('is-active', chip.getAttribute('data-filter-chip') === mode);
+  });
+  applyVisibility();
+}
+function applyVisibility() {
+  const mode = activeFilter();
+  const hiddenFamilies = getHiddenFamilies();
+  let hiddenCount = 0;
+  document.querySelectorAll('[data-group]').forEach((group) => {
+    const groupMode = group.getAttribute('data-group');
+    group.hidden = mode !== 'all' && groupMode !== mode;
+  });
+  document.querySelectorAll('[data-role-card="1"]').forEach((card) => {
+    const family = card.getAttribute('data-role-family') || '';
+    const familyHidden = family && hiddenFamilies.includes(family);
+    const localState = card.getAttribute('data-local-state') || localStorage.getItem('job-brief:' + card.getAttribute('data-role-id')) || '';
+    if (familyHidden) hiddenCount += 1;
+    card.hidden = familyHidden;
+    if (localState) card.setAttribute('data-local-state', localState);
+  });
+  document.querySelectorAll('[data-group]').forEach((group) => {
+    const visibleCards = [...group.querySelectorAll('[data-role-card="1"]')].filter((card) => !card.hidden);
+    const empty = group.querySelector('[data-empty-state]');
+    if (empty) empty.hidden = visibleCards.length > 0;
+  });
+  const countNode = document.querySelector('[data-hidden-count]');
+  if (countNode) countNode.textContent = String(hiddenCount);
+  const familiesNode = document.querySelector('[data-hidden-families]');
+  if (familiesNode) {
+    familiesNode.textContent = hiddenFamilies.length ? hiddenFamilies.join(' · ') : 'None';
+  }
+}
+window.addEventListener('DOMContentLoaded', () => {
+  applySavedStates();
+  setFilter('all');
+});
+</script>
+
 </body>
 </html>

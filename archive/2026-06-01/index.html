@@ -126,7 +126,11 @@ main, .shell { max-width: 1160px; margin: 0 auto; padding: 24px 18px 48px; }
 .role-card[data-verdict="maybe"] { border-left-color: var(--maybe); }
 .role-card[data-verdict="skip"] { border-left-color: var(--skip); }
 .role-card[data-local-state="apply"] { box-shadow: inset 0 0 0 1px rgba(100, 213, 154, 0.22); }
-.role-card[data-local-state="skip"] { box-shadow: inset 0 0 0 1px rgba(234, 128, 128, 0.22); }
+.role-card[data-local-state="later"] { box-shadow: inset 0 0 0 1px rgba(141, 189, 255, 0.22); }
+.role-card[data-local-state="skip"] { box-shadow: inset 0 0 0 1px rgba(234, 128, 128, 0.22); opacity: .82; }
+.suppression-bar { display: grid; gap: 8px; margin-top: 12px; }
+.suppression-bar .inline-note strong { color: var(--text); }
+.section-stack { display: grid; gap: 18px; }
 .role-top {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start;
 }
@@ -206,8 +210,8 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <div>
           <div class="kicker">Daily triage brief</div>
           <h1>Aram daily job brief</h1>
-          <p class="hero-summary">2026-06-01 · 8 reviewed · 2 Strong · 5 Maybe · 1 Skip</p>
-          <p class="hero-overview">Today’s scan added only 2 new SumUp freelance field-sales roles, and both are low-signal for your lanes. So the best current set comes from the existing pipeline plus a selective YC seed+ pass. The strongest themes remain partner/product/solutions roles in AI or workflow-heavy enterprise software; the biggest traps are location-locked hybrid roles and flattering titles that quietly expect deeper technical delivery or textbook PM pedigree.</p>
+          <p class="hero-summary">2026-06-01 · </p>
+          <p class="hero-overview">2026-06-01 · 8 reviewed · 2 Strong · 5 Maybe · 1 Skip</p>
           <div class="hero-actions" style="margin-top:16px;">
             <a class="btn" href="#new-today">Open real new-today roles</a>
           </div>
@@ -225,12 +229,12 @@ details.role-details summary::-webkit-details-marker { display: none; }
         </aside>
       </div>
     </section>
-    <section class="panel section" id="new-today">
+    <section class="panel section" id="new-today" data-group="new-today">
   <div class="section-head">
     <div class="group-anchor"><h2>New today from scan</h2><span class="badge count">2 roles</span></div>
-    <div class="group-summary">Raw additions first seen on 2026-06-01. This is the honest today bucket.</div>
+    <div class="group-summary">Raw additions first seen on 2026-06-01. This stays separate from backlog on purpose.</div>
   </div>
-  <div class="roles"><article class="role-card">
+  <div class="roles"><article class="role-card" data-role-card="1" data-role-id="sumup-commercial-e-terrain-ind-pendant-freelance" data-role-family="general">
   <div class="role-top">
     <div>
       <div class="role-meta">
@@ -240,13 +244,13 @@ details.role-details summary::-webkit-details-marker { display: none; }
         
       </div>
       <h3 class="role-title"><a href="https://sumup.com/careers/positions/7875398002?gh_jid=7875398002" target="_blank" rel="noopener noreferrer">SumUp — Commercial(e) Terrain - Indépendant (Freelance)</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-06-01</span><span class="meta-pill">greenhouse-api</span></div>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-06-01</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">General</span></div>
     </div>
     <div class="card-actions">
       <a class="btn" href="https://sumup.com/careers/positions/7875398002?gh_jid=7875398002" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card">
+</article> <article class="role-card" data-role-card="1" data-role-id="sumup-commercial-terrain-ind-pendant-freelance" data-role-family="general">
   <div class="role-top">
     <div>
       <div class="role-meta">
@@ -256,29 +260,46 @@ details.role-details summary::-webkit-details-marker { display: none; }
         
       </div>
       <h3 class="role-title"><a href="https://sumup.com/careers/positions/7988604002?gh_jid=7988604002" target="_blank" rel="noopener noreferrer">SumUp — Commercial Terrain - Indépendant (Freelance)</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-06-01</span><span class="meta-pill">greenhouse-api</span></div>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-06-01</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">General</span></div>
     </div>
     <div class="card-actions">
       <a class="btn" href="https://sumup.com/careers/positions/7988604002?gh_jid=7988604002" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
 </article></div>
+  <p class="inline-note" data-empty-state hidden>Nothing new today.</p>
 </section>
     <section class="panel section focus-box">
       <div class="section-head"><h2>Recommended focus</h2><div class="inline-note">Compressed on purpose — open only if you need the sorting logic.</div></div>
       <details>
         <summary>Show triage rules</summary>
-        <ul class="focus-list" style="margin-top:12px;"><li>Prioritize partner/product/solutions roles where AI value framing and customer leverage matter more than core engineering ownership.</li><li>Treat NYC/SF hybrid seed+ roles as worth a look only if the mandate is unusually clean and the relocation/logistics story is viable.</li><li>Do not spend time on today’s new SumUp additions; they are pure commercial field-sales noise.</li></ul>
+        <ul class="focus-list" style="margin-top:12px;"></ul>
       </details>
     </section>
   </main>
   
 <script>
 const HERMES_PURSUE_WEBHOOK = "https://modifications-move-little-work.trycloudflare.com/webhooks/job-brief-apply-36ad777992fe";
+const HIDDEN_FAMILIES_KEY = 'job-brief:hidden-families';
 function pursueStatusText(queued) {
   return queued
     ? "Queued for Hermes. I'll pick it up from this thread."
     : 'Saved locally as pursue. Hermes queue ping failed, so this one is only local for now.';
+}
+function localStateText(state) {
+  if (state === 'later') return 'Saved locally for later review.';
+  if (state === 'skip') return 'Saved locally as skip.';
+  return '';
+}
+function getHiddenFamilies() {
+  try {
+    return JSON.parse(localStorage.getItem(HIDDEN_FAMILIES_KEY) || '[]');
+  } catch (err) {
+    return [];
+  }
+}
+function setHiddenFamilies(families) {
+  localStorage.setItem(HIDDEN_FAMILIES_KEY, JSON.stringify(families));
 }
 function sendPursueWebhook(roleId) {
   const card = document.querySelector('[data-role-id="' + roleId + '"]');
@@ -332,9 +353,25 @@ function setRoleState(roleId, state) {
     const queued = alreadyQueued ? true : sendPursueWebhook(roleId);
     if (queued) localStorage.setItem(sentKey, '1');
     if (label) label.textContent = pursueStatusText(queued);
-    return;
+  } else if (label) {
+    label.textContent = localStateText(state);
   }
-  if (label) label.textContent = 'Saved locally as skip.';
+  applyVisibility();
+}
+function hideRoleFamily(roleId, family, labelText) {
+  if (!family) return;
+  const families = getHiddenFamilies();
+  if (!families.includes(family)) {
+    families.push(family);
+    setHiddenFamilies(families);
+  }
+  const label = document.querySelector('[data-role-state="' + roleId + '"]');
+  if (label) label.textContent = 'Hidden similar roles: ' + labelText + '.';
+  applyVisibility();
+}
+function resetHiddenFamilies() {
+  localStorage.removeItem(HIDDEN_FAMILIES_KEY);
+  applyVisibility();
 }
 function applySavedStates() {
   document.querySelectorAll('[data-role-id]').forEach((card) => {
@@ -348,17 +385,47 @@ function applySavedStates() {
       const queued = localStorage.getItem('job-brief:webhook-sent:' + roleId) === '1';
       label.textContent = pursueStatusText(queued);
     } else {
-      label.textContent = 'Saved locally as skip.';
+      label.textContent = localStateText(state);
     }
   });
+}
+function activeFilter() {
+  const chip = document.querySelector('[data-filter-chip].is-active');
+  return chip ? chip.getAttribute('data-filter-chip') : 'all';
 }
 function setFilter(mode) {
   document.querySelectorAll('[data-filter-chip]').forEach((chip) => {
     chip.classList.toggle('is-active', chip.getAttribute('data-filter-chip') === mode);
   });
+  applyVisibility();
+}
+function applyVisibility() {
+  const mode = activeFilter();
+  const hiddenFamilies = getHiddenFamilies();
+  let hiddenCount = 0;
   document.querySelectorAll('[data-group]').forEach((group) => {
-    group.hidden = mode !== 'all' && group.getAttribute('data-group') !== mode;
+    const groupMode = group.getAttribute('data-group');
+    group.hidden = mode !== 'all' && groupMode !== mode;
   });
+  document.querySelectorAll('[data-role-card="1"]').forEach((card) => {
+    const family = card.getAttribute('data-role-family') || '';
+    const familyHidden = family && hiddenFamilies.includes(family);
+    const localState = card.getAttribute('data-local-state') || localStorage.getItem('job-brief:' + card.getAttribute('data-role-id')) || '';
+    if (familyHidden) hiddenCount += 1;
+    card.hidden = familyHidden;
+    if (localState) card.setAttribute('data-local-state', localState);
+  });
+  document.querySelectorAll('[data-group]').forEach((group) => {
+    const visibleCards = [...group.querySelectorAll('[data-role-card="1"]')].filter((card) => !card.hidden);
+    const empty = group.querySelector('[data-empty-state]');
+    if (empty) empty.hidden = visibleCards.length > 0;
+  });
+  const countNode = document.querySelector('[data-hidden-count]');
+  if (countNode) countNode.textContent = String(hiddenCount);
+  const familiesNode = document.querySelector('[data-hidden-families]');
+  if (familiesNode) {
+    familiesNode.textContent = hiddenFamilies.length ? hiddenFamilies.join(' · ') : 'None';
+  }
 }
 window.addEventListener('DOMContentLoaded', () => {
   applySavedStates();
