@@ -391,23 +391,28 @@ details.role-details summary::-webkit-details-marker { display: none; }
   </main>
   
 <script>
-const HERMES_STATE_WEBHOOK = "https://modifications-move-little-work.trycloudflare.com/webhooks/job-brief-apply-36ad777992fe";
+const HERMES_STATE_API = "https://modifications-move-little-work.trycloudflare.com/webhooks/job-board-state-ack-36ad777992fe";
+const HERMES_PURSUE_WEBHOOK = "https://modifications-move-little-work.trycloudflare.com/webhooks/job-brief-apply-36ad777992fe";
 const INITIAL_BOARD_STATE = {"hidden_families": [], "roles": {"arize ai::partner product and solutions lead": {"state": "later", "updated_at": "2026-06-02T12:00:00Z", "company": "Arize AI", "title": "Partner Product & Solutions Lead", "url": "https://job-boards.greenhouse.io/arizeai/jobs/5978967004", "role_id": "", "family": "partnerships", "source": "job-briefs"}, "glean::ai outcomes manager": {"state": "preparing", "updated_at": "2026-05-16", "company": "Glean", "title": "AI Outcomes Manager, London", "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4613925005", "family": "value", "source": "apply-ops"}, "celonis::senior applied ai solutions consultant": {"state": "preparing", "updated_at": "2026-05-17", "company": "Celonis", "title": "Senior Applied AI Solutions Consultant", "url": "https://job-boards.greenhouse.io/celonis/jobs/7661696003", "family": "general", "source": "apply-ops"}, "credal ai::founding gtm deployment strategist": {"state": "blocked", "updated_at": "2026-05-17", "company": "Credal.ai", "title": "Founding GTM - Deployment Strategist", "url": "https://www.ycombinator.com/companies/credal-ai/jobs/3OnqAVU-founding-gtm-deployment-strategist", "family": "value", "source": "apply-ops"}, "intercom::product manager": {"state": "preparing", "updated_at": "2026-05-17", "company": "Intercom / Fin", "title": "Product Manager", "url": "https://job-boards.greenhouse.io/intercom/jobs/5663703", "family": "product", "source": "apply-ops"}, "glean::product manager ai quality": {"state": "preparing", "updated_at": "2026-05-17", "company": "Glean", "title": "Product Manager, AI Quality", "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4694764005", "family": "product", "source": "apply-ops"}, "soff::founding ai product manager": {"state": "blocked", "updated_at": "2026-05-17", "company": "Soff", "title": "Founding AI Product Manager", "url": "", "family": "product", "source": "apply-ops"}, "intercom::staff ai product manager": {"state": "preparing", "updated_at": "2026-05-17", "company": "Intercom / Fin", "title": "Staff AI Product Manager", "url": "https://job-boards.greenhouse.io/intercom/jobs/7464294", "family": "product", "source": "apply-ops"}, "glimpse::deployment strategist": {"state": "blocked", "updated_at": "2026-05-17", "company": "Glimpse", "title": "Deployment Strategist", "url": "", "family": "value", "source": "apply-ops"}, "anthropic::applied ai architect startups": {"state": "blocked", "updated_at": "2026-05-17", "company": "Anthropic", "title": "Applied AI Architect, Startups", "url": "https://job-boards.greenhouse.io/anthropic/jobs/5193973008", "family": "general", "source": "apply-ops"}, "overview::ai gtm operations lead": {"state": "preparing", "updated_at": "2026-05-17", "company": "Overview", "title": "AI GTM Operations Lead", "url": "https://www.ycombinator.com/companies/overview/jobs/5oQK2VP-ai-gtm-operations-lead", "family": "ops", "source": "apply-ops"}}};
 const boardState = INITIAL_BOARD_STATE || { hidden_families: [], roles: {} };
 function pursueStatusText(queued) {
   return queued
-    ? "Queued for Hermes. Persisted backend state will show on next publish."
-    : "Queue ping failed. No backend persistence confirmed yet.";
+    ? "Saved. Hermes pursue workflow queued."
+    : "Saved. Hermes pursue workflow ping failed.";
 }
 function persistedStateText(state, queued) {
   if (state === 'apply') return pursueStatusText(queued);
-  if (state === 'later') return queued ? 'Queued as later. Backend state will show on next publish.' : 'Later state set in this view only.';
-  if (state === 'skip') return queued ? 'Queued as skip. Backend state will show on next publish.' : 'Skip state set in this view only.';
+  if (state === 'later') return 'Saved as later.';
+  if (state === 'skip') return 'Saved as skip.';
   if (state === 'preparing') return 'Already in Hermes prep lane.';
   if (state === 'ready') return 'Already marked ready in backend ops.';
   if (state === 'blocked') return 'Already blocked in backend ops.';
   if (state === 'submitted') return 'Already submitted.';
   return '';
+}
+function errorStateText(state, message) {
+  const prefix = state === 'apply' ? 'Pursue not saved' : state.charAt(0).toUpperCase() + state.slice(1) + ' not saved';
+  return message ? prefix + ': ' + message : prefix + '.';
 }
 function getHiddenFamilies() {
   return Array.isArray(boardState.hidden_families) ? boardState.hidden_families : [];
@@ -415,13 +420,33 @@ function getHiddenFamilies() {
 function getRoleState(roleKey) {
   return boardState.roles && boardState.roles[roleKey] ? (boardState.roles[roleKey].state || '') : '';
 }
-function queueBoardAction(payload) {
-  if (!HERMES_STATE_WEBHOOK) return false;
+async function saveBoardAction(payload) {
+  if (!HERMES_STATE_API) throw new Error('State API missing');
+  const resp = await fetch(HERMES_STATE_API, {
+    method: 'POST',
+    mode: 'cors',
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+    body: JSON.stringify(payload),
+  });
+  let data = {};
+  try {
+    data = await resp.json();
+  } catch (err) {
+    console.warn('State API JSON parse failed', err);
+  }
+  if (!resp.ok) {
+    const message = data && (data.error || data.status) ? String(data.error || data.status) : 'save failed';
+    throw new Error(message);
+  }
+  return data;
+}
+function queuePursueWorkflow(payload) {
+  if (!HERMES_PURSUE_WEBHOOK) return false;
   const body = JSON.stringify(payload);
   try {
     if (navigator.sendBeacon) {
       const ok = navigator.sendBeacon(
-        HERMES_STATE_WEBHOOK,
+        HERMES_PURSUE_WEBHOOK,
         new Blob([body], { type: 'text/plain;charset=UTF-8' })
       );
       if (ok) return true;
@@ -430,7 +455,7 @@ function queueBoardAction(payload) {
     console.warn('sendBeacon failed', err);
   }
   try {
-    fetch(HERMES_STATE_WEBHOOK, {
+    fetch(HERMES_PURSUE_WEBHOOK, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
@@ -452,7 +477,7 @@ function syncRoleCard(card) {
   else card.removeAttribute('data-local-state');
   if (label) label.textContent = persistedStateText(state, true);
 }
-function setRoleState(roleId, roleKey, state) {
+async function setRoleState(roleId, roleKey, state) {
   const card = document.querySelector('[data-role-id="' + roleId + '"]');
   const label = document.querySelector('[data-role-state="' + roleId + '"]');
   if (!card || !roleKey) return;
@@ -469,22 +494,27 @@ function setRoleState(roleId, roleKey, state) {
   payload.role_key = roleKey;
   payload.family = card.getAttribute('data-role-family') || '';
   payload.clicked_at = new Date().toISOString();
-  if (!boardState.roles) boardState.roles = {};
-  boardState.roles[roleKey] = {
-    ...(boardState.roles[roleKey] || {}),
-    state,
-    updated_at: payload.clicked_at,
-    family: payload.family,
-  };
-  const queued = queueBoardAction(payload);
-  card.setAttribute('data-local-state', state);
-  if (label) label.textContent = persistedStateText(state, queued);
-  applyVisibility();
+  if (label) label.textContent = 'Saving...';
+  try {
+    await saveBoardAction(payload);
+    if (!boardState.roles) boardState.roles = {};
+    boardState.roles[roleKey] = {
+      ...(boardState.roles[roleKey] || {}),
+      state,
+      updated_at: payload.clicked_at,
+      family: payload.family,
+    };
+    card.setAttribute('data-local-state', state);
+    const queued = state === 'apply' ? queuePursueWorkflow(payload) : true;
+    if (label) label.textContent = persistedStateText(state, queued);
+    applyVisibility();
+  } catch (err) {
+    console.warn('State save failed', err);
+    if (label) label.textContent = errorStateText(state, err && err.message ? err.message : 'save failed');
+  }
 }
 function hideRoleFamily(roleId, family, labelText) {
   if (!family) return;
-  if (!Array.isArray(boardState.hidden_families)) boardState.hidden_families = [];
-  if (!boardState.hidden_families.includes(family)) boardState.hidden_families.push(family);
   const card = document.querySelector('[data-role-id="' + roleId + '"]');
   let payload = { action: 'hide-family', family, clicked_at: new Date().toISOString() };
   if (card) {
@@ -497,20 +527,32 @@ function hideRoleFamily(roleId, family, labelText) {
       }
     }
   }
-  const queued = queueBoardAction(payload);
   const label = document.querySelector('[data-role-state="' + roleId + '"]');
-  if (label) label.textContent = queued
-    ? 'Queued hidden family: ' + labelText + '.'
-    : 'Hidden similar roles in this view: ' + labelText + '.';
-  applyVisibility();
+  if (label) label.textContent = 'Saving...';
+  saveBoardAction(payload)
+    .then(() => {
+      if (!Array.isArray(boardState.hidden_families)) boardState.hidden_families = [];
+      if (!boardState.hidden_families.includes(family)) boardState.hidden_families.push(family);
+      if (label) label.textContent = 'Saved hidden family: ' + labelText + '.';
+      applyVisibility();
+    })
+    .catch((err) => {
+      console.warn('Hide family save failed', err);
+      if (label) label.textContent = 'Hide family not saved: ' + (err && err.message ? err.message : 'save failed');
+    });
 }
 function resetHiddenFamilies() {
   const families = [...getHiddenFamilies()];
-  boardState.hidden_families = [];
-  families.forEach((family) => {
-    queueBoardAction({ action: 'unhide-family', family, clicked_at: new Date().toISOString() });
-  });
-  applyVisibility();
+  Promise.all(
+    families.map((family) => saveBoardAction({ action: 'unhide-family', family, clicked_at: new Date().toISOString() }))
+  )
+    .then(() => {
+      boardState.hidden_families = [];
+      applyVisibility();
+    })
+    .catch((err) => {
+      console.warn('Reset hidden families failed', err);
+    });
 }
 function applySavedStates() {
   document.querySelectorAll('[data-role-id]').forEach((card) => {
