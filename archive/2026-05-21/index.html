@@ -210,25 +210,18 @@ details.role-details summary::-webkit-details-marker { display: none; }
           <p class="hero-overview">Today’s scan added 5 raw roles, but the fresh additions are still mostly senior-partnership or technical-solution work rather than clean must-pursue fits. The best current options remain a carryover-heavy mix of AI outcomes, deployment strategy, and partner-facing roles where product judgment, workflow framing, and customer leverage matter more than core engineering ownership.</p>
           <div class="hero-actions" style="margin-top:16px;">
             <a class="btn" href="#new-today">Open real new-today roles</a>
-            <a class="btn-secondary" href="#strong">Open carryover shortlist</a>
           </div>
-          <p class="inline-note" style="margin-top:12px;">Only the <strong>New today from scan</strong> section is net-new for this date. The shortlist below is an explicit carryover backlog so repeats across days are expected there.</p>
+          <p class="inline-note" style="margin-top:12px;">Historical cleanup mode: this archive page now shows only the real <strong>new today</strong> bucket for this date. Carryover backlog sections were removed to eliminate cross-day duplicates.</p>
         </div>
         <aside class="panel" aria-label="Today summary">
           <h2 style="margin-bottom:10px;">Today</h2>
           <div class="metric-grid" style="margin-top:0; grid-template-columns:repeat(2, minmax(0, 1fr));">
             <div class="metric"><div class="metric-label">New in scan</div><div class="metric-value">5</div></div>
             <div class="metric"><div class="metric-label">Shortlisted from new</div><div class="metric-value">3</div></div>
-            <div class="metric"><div class="metric-label">Shortlist total</div><div class="metric-value">10</div></div>
-            <div class="metric"><div class="metric-label">Backlog carryover</div><div class="metric-value">7</div></div>
+            <div class="metric"><div class="metric-label">New worthwhile roles</div><div class="metric-value">3</div></div>
+            <div class="metric"><div class="metric-label">Carryover shown</div><div class="metric-value">0</div></div>
           </div>
-          <div class="metric" style="margin-top:10px;"><div class="metric-label">Verdicts in shortlist</div><div class="metric-note">Strong 3 · Maybe 4 · Skip 3</div></div>
-          <div class="filter-row" aria-label="Role groups">
-            <button class="filter-chip is-active" data-filter-chip="all" onclick="setFilter('all')">All</button>
-            <button class="filter-chip" data-filter-chip="strong" onclick="setFilter('strong')">Strong</button>
-            <button class="filter-chip" data-filter-chip="maybe" onclick="setFilter('maybe')">Maybe</button>
-            <button class="filter-chip" data-filter-chip="skip" onclick="setFilter('skip')">Skip</button>
-          </div>
+          <div class="metric" style="margin-top:10px;"><div class="metric-label">Verdicts in new-only shortlist</div><div class="metric-note">Strong 0 · Maybe 2 · Skip 1</div></div>
         </aside>
       </div>
     </section>
@@ -237,13 +230,14 @@ details.role-details summary::-webkit-details-marker { display: none; }
     <div class="group-anchor"><h2>New today from scan</h2><span class="badge count">5 roles</span></div>
     <div class="group-summary">Raw additions first seen on 2026-05-21. This is the honest today bucket.</div>
   </div>
-  <div class="roles"><article class="role-card">
+  <div class="roles"><article class="role-card" data-verdict="maybe">
   <div class="role-top">
     <div>
       <div class="role-meta">
         <span class="badge count">New today</span>
         <span class="badge source">Parloa</span>
         <span class="badge count">Shortlisted</span>
+        <span class="badge maybe">Maybe</span>
       </div>
       <h3 class="role-title"><a href="https://job-boards.eu.greenhouse.io/parloa/jobs/4825368101" target="_blank" rel="noopener noreferrer">Parloa — GSI Partnerships Manager</a></h3>
       <div class="role-meta"><span class="meta-pill">first seen 2026-05-21</span><span class="meta-pill">greenhouse-api</span></div>
@@ -252,13 +246,14 @@ details.role-details summary::-webkit-details-marker { display: none; }
       <a class="btn" href="https://job-boards.eu.greenhouse.io/parloa/jobs/4825368101" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card">
+</article> <article class="role-card" data-verdict="maybe">
   <div class="role-top">
     <div>
       <div class="role-meta">
         <span class="badge count">New today</span>
         <span class="badge source">Intercom</span>
         <span class="badge count">Shortlisted</span>
+        <span class="badge maybe">Maybe</span>
       </div>
       <h3 class="role-title"><a href="https://job-boards.greenhouse.io/intercom/jobs/7943223" target="_blank" rel="noopener noreferrer">Intercom — Partner Solutions Engineer (NAMER &amp; LATAM)</a></h3>
       <div class="role-meta"><span class="meta-pill">first seen 2026-05-21</span><span class="meta-pill">greenhouse-api</span></div>
@@ -274,6 +269,7 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <span class="badge count">New today</span>
         <span class="badge source">SumUp</span>
         <span class="badge count">Not shortlisted</span>
+        
       </div>
       <h3 class="role-title"><a href="https://sumup.com/careers/positions/8488967002?gh_jid=8488967002" target="_blank" rel="noopener noreferrer">SumUp — Commercial Terrain - Indépendant (Freelance)</a></h3>
       <div class="role-meta"><span class="meta-pill">first seen 2026-05-21</span><span class="meta-pill">greenhouse-api</span></div>
@@ -289,6 +285,7 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <span class="badge count">New today</span>
         <span class="badge source">SumUp</span>
         <span class="badge count">Not shortlisted</span>
+        
       </div>
       <h3 class="role-title"><a href="https://sumup.com/careers/positions/8529498002?gh_jid=8529498002" target="_blank" rel="noopener noreferrer">SumUp — Senior Technical Product Manager</a></h3>
       <div class="role-meta"><span class="meta-pill">first seen 2026-05-21</span><span class="meta-pill">greenhouse-api</span></div>
@@ -297,13 +294,14 @@ details.role-details summary::-webkit-details-marker { display: none; }
       <a class="btn" href="https://sumup.com/careers/positions/8529498002?gh_jid=8529498002" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card">
+</article> <article class="role-card" data-verdict="skip">
   <div class="role-top">
     <div>
       <div class="role-meta">
         <span class="badge count">New today</span>
         <span class="badge source">Anthropic</span>
         <span class="badge count">Shortlisted</span>
+        <span class="badge skip">Skip</span>
       </div>
       <h3 class="role-title"><a href="https://job-boards.greenhouse.io/anthropic/jobs/5226540008" target="_blank" rel="noopener noreferrer">Anthropic — Strategic Partner Development, Product Partnerships - Cybersecurity</a></h3>
       <div class="role-meta"><span class="meta-pill">first seen 2026-05-21</span><span class="meta-pill">greenhouse-api</span></div>
@@ -321,290 +319,6 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <ul class="focus-list" style="margin-top:12px;"><li>Start with Glean, PolyAI, and HappyRobot — still the clearest matches to Aram’s applied-AI operator spine.</li><li>Use Parloa, Intercom, Glean PM, and Gojiberry as selective maybes if you want extra shots without drifting too far off thesis.</li><li>Keep down-ranking flattering technical traps: Arize, Anthropic security partnerships, and Retell all look strong on paper but likely convert poorly.</li></ul>
       </details>
     </section>
-    <section class="panel section" data-group="strong" id="strong">
-  <div class="section-head">
-    <div class="group-anchor"><h2>Carryover shortlist — Strong</h2><span class="badge count">3 roles</span></div>
-    <div class="group-summary">Carryover backlog from earlier briefs; still the highest-conviction roles worth first attention.</div>
-  </div>
-  <div class="roles"><article class="role-card" data-role-id="2026-05-21-glean-ai-outcomes-manager-london" data-verdict="strong" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-21&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-21-glean-ai-outcomes-manager-london&quot;, &quot;company&quot;: &quot;Glean&quot;, &quot;title&quot;: &quot;AI Outcomes Manager, London&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/gleanwork/jobs/4613925005&quot;, &quot;meta&quot;: &quot;London, United Kingdom · Hybrid 1 day/week&quot;, &quot;fit&quot;: &quot;Direct AI-outcomes role: executive discovery, pilots, adoption, and workflow redesign all map cleanly.&quot;, &quot;risk&quot;: &quot;London hybrid still creates relocation and logistics friction.&quot;, &quot;verdict&quot;: &quot;strong&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge strong">Strong</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/gleanwork/jobs/4613925005" target="_blank" rel="noopener noreferrer">Glean — AI Outcomes Manager, London</a></h3>
-      <div class="role-meta"><span class="meta-pill">London, United Kingdom</span><span class="meta-pill">Hybrid 1 day/week</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-16</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.greenhouse.io/gleanwork/jobs/4613925005" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-21-glean-ai-outcomes-manager-london', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-21-glean-ai-outcomes-manager-london', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Direct AI-outcomes role: executive discovery, pilots, adoption, and workflow redesign all map cleanly.</p>
-  <div class="action-state" data-role-state="2026-05-21-glean-ai-outcomes-manager-london"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Direct AI-outcomes role: executive discovery, pilots, adoption, and workflow redesign all map cleanly.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>London hybrid still creates relocation and logistics friction.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Glean%20%E2%80%94%20AI%20Outcomes%20Manager%2C%20London&amp;body=%23%23%20Role%0A-%20Company%3A%20Glean%0A-%20Title%3A%20AI%20Outcomes%20Manager%2C%20London%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/gleanwork/jobs/4613925005%0A-%20Brief%20date%3A%202026-05-21%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article>
-<article class="role-card" data-role-id="2026-05-21-polyai-senior-channel-solutions-consultant" data-verdict="strong" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-21&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-21-polyai-senior-channel-solutions-consultant&quot;, &quot;company&quot;: &quot;PolyAI&quot;, &quot;title&quot;: &quot;Senior Channel Solutions Consultant&quot;, &quot;url&quot;: &quot;https://job-boards.eu.greenhouse.io/polyai/jobs/4784892101&quot;, &quot;meta&quot;: &quot;Central/Western US · Up to 60% travel&quot;, &quot;fit&quot;: &quot;Good blend of partner enablement, ROI framing, discovery, and enterprise conversational-AI narrative.&quot;, &quot;risk&quot;: &quot;Heavy travel plus contact-center technical depth narrows practicality.&quot;, &quot;verdict&quot;: &quot;strong&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge strong">Strong</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.eu.greenhouse.io/polyai/jobs/4784892101" target="_blank" rel="noopener noreferrer">PolyAI — Senior Channel Solutions Consultant</a></h3>
-      <div class="role-meta"><span class="meta-pill">Central/Western US</span><span class="meta-pill">Up to 60% travel</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-16</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.eu.greenhouse.io/polyai/jobs/4784892101" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-21-polyai-senior-channel-solutions-consultant', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-21-polyai-senior-channel-solutions-consultant', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Good blend of partner enablement, ROI framing, discovery, and enterprise conversational-AI narrative.</p>
-  <div class="action-state" data-role-state="2026-05-21-polyai-senior-channel-solutions-consultant"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Good blend of partner enablement, ROI framing, discovery, and enterprise conversational-AI narrative.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>Heavy travel plus contact-center technical depth narrows practicality.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20PolyAI%20%E2%80%94%20Senior%20Channel%20Solutions%20Consultant&amp;body=%23%23%20Role%0A-%20Company%3A%20PolyAI%0A-%20Title%3A%20Senior%20Channel%20Solutions%20Consultant%0A-%20URL%3A%20https%3A//job-boards.eu.greenhouse.io/polyai/jobs/4784892101%0A-%20Brief%20date%3A%202026-05-21%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article>
-<article class="role-card" data-role-id="2026-05-21-happyrobot-deployment-strategist" data-verdict="strong" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-21&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-21-happyrobot-deployment-strategist&quot;, &quot;company&quot;: &quot;HappyRobot&quot;, &quot;title&quot;: &quot;Deployment Strategist&quot;, &quot;url&quot;: &quot;https://www.workatastartup.com/jobs/78394&quot;, &quot;meta&quot;: &quot;San Francisco, CA · YC seed+ lane · Will sponsor&quot;, &quot;fit&quot;: &quot;Excellent applied-AI operator brief around customer operations, value unlock, and product-in-the-loop deployment.&quot;, &quot;risk&quot;: &quot;SF location and logistics-domain depth could pull the work into implementation trenches.&quot;, &quot;verdict&quot;: &quot;strong&quot;, &quot;lane&quot;: &quot;YC seed+&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge strong">Strong</span>
-        <span class="badge count">Untracked</span>
-        <span class="badge source">YC seed+</span>
-      </div>
-      <h3 class="role-title"><a href="https://www.workatastartup.com/jobs/78394" target="_blank" rel="noopener noreferrer">HappyRobot — Deployment Strategist</a></h3>
-      <div class="role-meta"><span class="meta-pill">San Francisco, CA</span><span class="meta-pill">YC seed+ lane</span><span class="meta-pill">Will sponsor</span><span class="meta-pill">YC seed+</span></div>
-      
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://www.workatastartup.com/jobs/78394" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-21-happyrobot-deployment-strategist', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-21-happyrobot-deployment-strategist', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Excellent applied-AI operator brief around customer operations, value unlock, and product-in-the-loop deployment.</p>
-  <div class="action-state" data-role-state="2026-05-21-happyrobot-deployment-strategist"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Excellent applied-AI operator brief around customer operations, value unlock, and product-in-the-loop deployment.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>SF location and logistics-domain depth could pull the work into implementation trenches.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20HappyRobot%20%E2%80%94%20Deployment%20Strategist&amp;body=%23%23%20Role%0A-%20Company%3A%20HappyRobot%0A-%20Title%3A%20Deployment%20Strategist%0A-%20URL%3A%20https%3A//www.workatastartup.com/jobs/78394%0A-%20Brief%20date%3A%202026-05-21%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article></div>
-</section>
-    <section class="panel section" data-group="maybe" id="maybe">
-  <div class="section-head">
-    <div class="group-anchor"><h2>Carryover shortlist — Maybe</h2><span class="badge count">2 roles</span></div>
-    <div class="group-summary">Carryover backlog from earlier briefs; keep these if you want more volume after the best fits.</div>
-  </div>
-  <div class="roles"><article class="role-card" data-role-id="2026-05-21-glean-product-manager-ai-quality" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-21&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-21-glean-product-manager-ai-quality&quot;, &quot;company&quot;: &quot;Glean&quot;, &quot;title&quot;: &quot;Product Manager, AI Quality&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/gleanwork/jobs/4694764005&quot;, &quot;meta&quot;: &quot;Mountain View, CA · Hybrid 4 days/week&quot;, &quot;fit&quot;: &quot;Real AI product role at a strong platform with customer-facing judgment and roadmap ownership.&quot;, &quot;risk&quot;: &quot;Formal PM-at-scale plus LLM portfolio ownership and near-full-time office make it a stretch.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge maybe">Maybe</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/gleanwork/jobs/4694764005" target="_blank" rel="noopener noreferrer">Glean — Product Manager, AI Quality</a></h3>
-      <div class="role-meta"><span class="meta-pill">Mountain View, CA</span><span class="meta-pill">Hybrid 4 days/week</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-16</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.greenhouse.io/gleanwork/jobs/4694764005" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-21-glean-product-manager-ai-quality', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-21-glean-product-manager-ai-quality', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Real AI product role at a strong platform with customer-facing judgment and roadmap ownership.</p>
-  <div class="action-state" data-role-state="2026-05-21-glean-product-manager-ai-quality"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Real AI product role at a strong platform with customer-facing judgment and roadmap ownership.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>Formal PM-at-scale plus LLM portfolio ownership and near-full-time office make it a stretch.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Glean%20%E2%80%94%20Product%20Manager%2C%20AI%20Quality&amp;body=%23%23%20Role%0A-%20Company%3A%20Glean%0A-%20Title%3A%20Product%20Manager%2C%20AI%20Quality%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/gleanwork/jobs/4694764005%0A-%20Brief%20date%3A%202026-05-21%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article>
-<article class="role-card" data-role-id="2026-05-21-gojiberry-ai-founding-product-manager-full-remote-saas" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-21&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-21-gojiberry-ai-founding-product-manager-full-remote-saas&quot;, &quot;company&quot;: &quot;Gojiberry AI&quot;, &quot;title&quot;: &quot;Founding Product Manager - Full Remote - SaaS 🚀&quot;, &quot;url&quot;: &quot;https://www.workatastartup.com/jobs/94963&quot;, &quot;meta&quot;: &quot;Remote / Europe-friendly listing · YC seed+ lane&quot;, &quot;fit&quot;: &quot;Founder-close PM seat with direct discovery, scoping, and shipping around an AI GTM product.&quot;, &quot;risk&quot;: &quot;The product thesis is still sales-automation heavy, and the listing shows confusing visa/location gating.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;YC seed+&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge maybe">Maybe</span>
-        <span class="badge count">Untracked</span>
-        <span class="badge source">YC seed+</span>
-      </div>
-      <h3 class="role-title"><a href="https://www.workatastartup.com/jobs/94963" target="_blank" rel="noopener noreferrer">Gojiberry AI — Founding Product Manager - Full Remote - SaaS 🚀</a></h3>
-      <div class="role-meta"><span class="meta-pill">Remote / Europe-friendly listing</span><span class="meta-pill">YC seed+ lane</span><span class="meta-pill">YC seed+</span></div>
-      
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://www.workatastartup.com/jobs/94963" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-21-gojiberry-ai-founding-product-manager-full-remote-saas', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-21-gojiberry-ai-founding-product-manager-full-remote-saas', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Founder-close PM seat with direct discovery, scoping, and shipping around an AI GTM product.</p>
-  <div class="action-state" data-role-state="2026-05-21-gojiberry-ai-founding-product-manager-full-remote-saas"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Founder-close PM seat with direct discovery, scoping, and shipping around an AI GTM product.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>The product thesis is still sales-automation heavy, and the listing shows confusing visa/location gating.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Gojiberry%20AI%20%E2%80%94%20Founding%20Product%20Manager%20-%20Full%20Remote%20-%20SaaS%20%F0%9F%9A%80&amp;body=%23%23%20Role%0A-%20Company%3A%20Gojiberry%20AI%0A-%20Title%3A%20Founding%20Product%20Manager%20-%20Full%20Remote%20-%20SaaS%20%F0%9F%9A%80%0A-%20URL%3A%20https%3A//www.workatastartup.com/jobs/94963%0A-%20Brief%20date%3A%202026-05-21%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article></div>
-</section>
-    <section class="panel section" data-group="skip" id="skip">
-  <div class="section-head">
-    <div class="group-anchor"><h2>Carryover shortlist — Skip</h2><span class="badge count">2 roles</span></div>
-    <div class="group-summary">Carryover backlog from earlier briefs; useful as reference, but low-conversion or off-thesis for now.</div>
-  </div>
-  <div class="roles"><article class="role-card" data-role-id="2026-05-21-arize-ai-ai-product-manager" data-verdict="skip" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-21&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-21-arize-ai-ai-product-manager&quot;, &quot;company&quot;: &quot;Arize AI&quot;, &quot;title&quot;: &quot;AI Product Manager&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/arizeai/jobs/5818115004&quot;, &quot;meta&quot;: &quot;United States (Remote)&quot;, &quot;fit&quot;: &quot;Attractive AI PM brand and real enterprise platform exposure.&quot;, &quot;risk&quot;: &quot;Explicitly wants prior engineering/tech-lead depth and willingness to code, so it drifts too technical.&quot;, &quot;verdict&quot;: &quot;skip&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge skip">Skip</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/arizeai/jobs/5818115004" target="_blank" rel="noopener noreferrer">Arize AI — AI Product Manager</a></h3>
-      <div class="role-meta"><span class="meta-pill">United States (Remote)</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-16</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.greenhouse.io/arizeai/jobs/5818115004" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-21-arize-ai-ai-product-manager', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-21-arize-ai-ai-product-manager', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Attractive AI PM brand and real enterprise platform exposure.</p>
-  <div class="action-state" data-role-state="2026-05-21-arize-ai-ai-product-manager"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Attractive AI PM brand and real enterprise platform exposure.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>Explicitly wants prior engineering/tech-lead depth and willingness to code, so it drifts too technical.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Arize%20AI%20%E2%80%94%20AI%20Product%20Manager&amp;body=%23%23%20Role%0A-%20Company%3A%20Arize%20AI%0A-%20Title%3A%20AI%20Product%20Manager%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/arizeai/jobs/5818115004%0A-%20Brief%20date%3A%202026-05-21%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article>
-<article class="role-card" data-role-id="2026-05-21-retell-ai-founding-senior-product-manager" data-verdict="skip" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-21&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-21-retell-ai-founding-senior-product-manager&quot;, &quot;company&quot;: &quot;Retell AI&quot;, &quot;title&quot;: &quot;Founding Senior Product Manager&quot;, &quot;url&quot;: &quot;https://www.workatastartup.com/jobs/88504&quot;, &quot;meta&quot;: &quot;San Francisco Bay Area · YC seed+ lane · US citizen/visa only&quot;, &quot;fit&quot;: &quot;Big upside and a strong AI voice platform story.&quot;, &quot;risk&quot;: &quot;Explicit visa block plus highly technical PM scope around telephony, realtime audio, and developer tooling.&quot;, &quot;verdict&quot;: &quot;skip&quot;, &quot;lane&quot;: &quot;YC seed+&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge skip">Skip</span>
-        <span class="badge count">Untracked</span>
-        <span class="badge source">YC seed+</span>
-      </div>
-      <h3 class="role-title"><a href="https://www.workatastartup.com/jobs/88504" target="_blank" rel="noopener noreferrer">Retell AI — Founding Senior Product Manager</a></h3>
-      <div class="role-meta"><span class="meta-pill">San Francisco Bay Area</span><span class="meta-pill">YC seed+ lane</span><span class="meta-pill">US citizen/visa only</span><span class="meta-pill">YC seed+</span></div>
-      
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://www.workatastartup.com/jobs/88504" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-21-retell-ai-founding-senior-product-manager', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-21-retell-ai-founding-senior-product-manager', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Big upside and a strong AI voice platform story.</p>
-  <div class="action-state" data-role-state="2026-05-21-retell-ai-founding-senior-product-manager"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Big upside and a strong AI voice platform story.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>Explicit visa block plus highly technical PM scope around telephony, realtime audio, and developer tooling.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Retell%20AI%20%E2%80%94%20Founding%20Senior%20Product%20Manager&amp;body=%23%23%20Role%0A-%20Company%3A%20Retell%20AI%0A-%20Title%3A%20Founding%20Senior%20Product%20Manager%0A-%20URL%3A%20https%3A//www.workatastartup.com/jobs/88504%0A-%20Brief%20date%3A%202026-05-21%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article></div>
-</section>
   </main>
   
 <script>

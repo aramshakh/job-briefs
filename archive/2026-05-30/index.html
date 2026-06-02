@@ -210,25 +210,18 @@ details.role-details summary::-webkit-details-marker { display: none; }
           <p class="hero-overview">The current pipeline is still noisy, but the best lane remains clear: enterprise AI roles where product judgment, customer discovery, adoption, partnerships, or GTM orchestration matter more than owning core engineering systems. Today’s strongest options are Intercom/Fin, Parloa, PolyAI, and Glean London. YC produced a couple of directionally interesting roles, but the best ones still come with geography or deployment-depth friction.</p>
           <div class="hero-actions" style="margin-top:16px;">
             <a class="btn" href="#new-today">Open real new-today roles</a>
-            <a class="btn-secondary" href="#strong">Open carryover shortlist</a>
           </div>
-          <p class="inline-note" style="margin-top:12px;">Only the <strong>New today from scan</strong> section is net-new for this date. The shortlist below is an explicit carryover backlog so repeats across days are expected there.</p>
+          <p class="inline-note" style="margin-top:12px;">Historical cleanup mode: this archive page now shows only the real <strong>new today</strong> bucket for this date. Carryover backlog sections were removed to eliminate cross-day duplicates.</p>
         </div>
         <aside class="panel" aria-label="Today summary">
           <h2 style="margin-bottom:10px;">Today</h2>
           <div class="metric-grid" style="margin-top:0; grid-template-columns:repeat(2, minmax(0, 1fr));">
             <div class="metric"><div class="metric-label">New in scan</div><div class="metric-value">4</div></div>
             <div class="metric"><div class="metric-label">Shortlisted from new</div><div class="metric-value">1</div></div>
-            <div class="metric"><div class="metric-label">Shortlist total</div><div class="metric-value">9</div></div>
-            <div class="metric"><div class="metric-label">Backlog carryover</div><div class="metric-value">8</div></div>
+            <div class="metric"><div class="metric-label">New worthwhile roles</div><div class="metric-value">1</div></div>
+            <div class="metric"><div class="metric-label">Carryover shown</div><div class="metric-value">0</div></div>
           </div>
-          <div class="metric" style="margin-top:10px;"><div class="metric-label">Verdicts in shortlist</div><div class="metric-note">Strong 4 · Maybe 2 · Skip 3</div></div>
-          <div class="filter-row" aria-label="Role groups">
-            <button class="filter-chip is-active" data-filter-chip="all" onclick="setFilter('all')">All</button>
-            <button class="filter-chip" data-filter-chip="strong" onclick="setFilter('strong')">Strong</button>
-            <button class="filter-chip" data-filter-chip="maybe" onclick="setFilter('maybe')">Maybe</button>
-            <button class="filter-chip" data-filter-chip="skip" onclick="setFilter('skip')">Skip</button>
-          </div>
+          <div class="metric" style="margin-top:10px;"><div class="metric-label">Verdicts in new-only shortlist</div><div class="metric-note">Strong 1 · Maybe 0 · Skip 0</div></div>
         </aside>
       </div>
     </section>
@@ -244,6 +237,7 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <span class="badge count">New today</span>
         <span class="badge source">Airtable</span>
         <span class="badge count">Not shortlisted</span>
+        
       </div>
       <h3 class="role-title"><a href="https://job-boards.greenhouse.io/airtable/jobs/8423374002" target="_blank" rel="noopener noreferrer">Airtable — Demo Engineer, Pre-Sales Solutions Consulting</a></h3>
       <div class="role-meta"><span class="meta-pill">first seen 2026-05-30</span><span class="meta-pill">greenhouse-api</span></div>
@@ -252,13 +246,14 @@ details.role-details summary::-webkit-details-marker { display: none; }
       <a class="btn" href="https://job-boards.greenhouse.io/airtable/jobs/8423374002" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card">
+</article> <article class="role-card" data-verdict="strong">
   <div class="role-top">
     <div>
       <div class="role-meta">
         <span class="badge count">New today</span>
         <span class="badge source">Intercom</span>
         <span class="badge count">Shortlisted</span>
+        <span class="badge strong">Strong</span>
       </div>
       <h3 class="role-title"><a href="https://job-boards.greenhouse.io/intercom/jobs/7681157" target="_blank" rel="noopener noreferrer">Intercom — Senior Sales Strategy &amp; Operations Manager, AI Products</a></h3>
       <div class="role-meta"><span class="meta-pill">first seen 2026-05-30</span><span class="meta-pill">greenhouse-api</span></div>
@@ -274,6 +269,7 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <span class="badge count">New today</span>
         <span class="badge source">SumUp</span>
         <span class="badge count">Not shortlisted</span>
+        
       </div>
       <h3 class="role-title"><a href="https://sumup.com/careers/positions/8354954002?gh_jid=8354954002" target="_blank" rel="noopener noreferrer">SumUp — Commercial(e) Terrain - Indépendant (Freelance)</a></h3>
       <div class="role-meta"><span class="meta-pill">first seen 2026-05-30</span><span class="meta-pill">greenhouse-api</span></div>
@@ -289,6 +285,7 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <span class="badge count">New today</span>
         <span class="badge source">SumUp</span>
         <span class="badge count">Not shortlisted</span>
+        
       </div>
       <h3 class="role-title"><a href="https://sumup.com/careers/positions/7988613002?gh_jid=7988613002" target="_blank" rel="noopener noreferrer">SumUp — Commercial Terrain - Indépendant (Freelance)</a></h3>
       <div class="role-meta"><span class="meta-pill">first seen 2026-05-30</span><span class="meta-pill">greenhouse-api</span></div>
@@ -306,328 +303,6 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <ul class="focus-list" style="margin-top:12px;"><li>Prioritize Intercom/Fin , Parloa , PolyAI , and Glean London ; these are the cleanest product/GTM/outcomes fits without pretending you’re an engineering hire.</li><li>Treat YC as a selective side lane only: Conduit and Glimpse are interesting, but both lean heavier into implementation/geography than the title first suggests.</li><li>Ignore flattering “applied AI” titles that secretly want a builder/operator with Python, RAG, and deployment depth; Celonis and Arize are the clearest examples.</li></ul>
       </details>
     </section>
-    <section class="panel section" data-group="strong" id="strong">
-  <div class="section-head">
-    <div class="group-anchor"><h2>Carryover shortlist — Strong</h2><span class="badge count">3 roles</span></div>
-    <div class="group-summary">Carryover backlog from earlier briefs; still the highest-conviction roles worth first attention.</div>
-  </div>
-  <div class="roles"><article class="role-card" data-role-id="2026-05-30-parloa-gsi-partnerships-manager" data-verdict="strong" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-30&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-30-parloa-gsi-partnerships-manager&quot;, &quot;company&quot;: &quot;Parloa&quot;, &quot;title&quot;: &quot;GSI Partnerships Manager&quot;, &quot;url&quot;: &quot;https://job-boards.eu.greenhouse.io/parloa/jobs/4825368101&quot;, &quot;meta&quot;: &quot;New York Office / Remote US&quot;, &quot;fit&quot;: &quot;Strong agentic-AI partnerships role with enterprise leverage, joint solutions, and executive relationship work.&quot;, &quot;risk&quot;: &quot;Wants a real GSI operator with a large-partner network; seniority bar is high.&quot;, &quot;verdict&quot;: &quot;strong&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge strong">Strong</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.eu.greenhouse.io/parloa/jobs/4825368101" target="_blank" rel="noopener noreferrer">Parloa — GSI Partnerships Manager</a></h3>
-      <div class="role-meta"><span class="meta-pill">New York Office / Remote US</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-21</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.eu.greenhouse.io/parloa/jobs/4825368101" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-30-parloa-gsi-partnerships-manager', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-30-parloa-gsi-partnerships-manager', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Strong agentic-AI partnerships role with enterprise leverage, joint solutions, and executive relationship work.</p>
-  <div class="action-state" data-role-state="2026-05-30-parloa-gsi-partnerships-manager"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Strong agentic-AI partnerships role with enterprise leverage, joint solutions, and executive relationship work.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>Wants a real GSI operator with a large-partner network; seniority bar is high.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Parloa%20%E2%80%94%20GSI%20Partnerships%20Manager&amp;body=%23%23%20Role%0A-%20Company%3A%20Parloa%0A-%20Title%3A%20GSI%20Partnerships%20Manager%0A-%20URL%3A%20https%3A//job-boards.eu.greenhouse.io/parloa/jobs/4825368101%0A-%20Brief%20date%3A%202026-05-30%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article>
-<article class="role-card" data-role-id="2026-05-30-polyai-senior-product-manager" data-verdict="strong" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-30&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-30-polyai-senior-product-manager&quot;, &quot;company&quot;: &quot;PolyAI&quot;, &quot;title&quot;: &quot;Senior Product Manager&quot;, &quot;url&quot;: &quot;https://job-boards.eu.greenhouse.io/polyai/jobs/4654856101&quot;, &quot;meta&quot;: &quot;London, United Kingdom&quot;, &quot;fit&quot;: &quot;Real AI product ownership around customer-service workflows and multi-channel conversational experiences.&quot;, &quot;risk&quot;: &quot;Formal PM calibration is real here, and the role still expects comfort around technical/LLM tradeoffs.&quot;, &quot;verdict&quot;: &quot;strong&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge strong">Strong</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.eu.greenhouse.io/polyai/jobs/4654856101" target="_blank" rel="noopener noreferrer">PolyAI — Senior Product Manager</a></h3>
-      <div class="role-meta"><span class="meta-pill">London, United Kingdom</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-28</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.eu.greenhouse.io/polyai/jobs/4654856101" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-30-polyai-senior-product-manager', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-30-polyai-senior-product-manager', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Real AI product ownership around customer-service workflows and multi-channel conversational experiences.</p>
-  <div class="action-state" data-role-state="2026-05-30-polyai-senior-product-manager"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Real AI product ownership around customer-service workflows and multi-channel conversational experiences.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>Formal PM calibration is real here, and the role still expects comfort around technical/LLM tradeoffs.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20PolyAI%20%E2%80%94%20Senior%20Product%20Manager&amp;body=%23%23%20Role%0A-%20Company%3A%20PolyAI%0A-%20Title%3A%20Senior%20Product%20Manager%0A-%20URL%3A%20https%3A//job-boards.eu.greenhouse.io/polyai/jobs/4654856101%0A-%20Brief%20date%3A%202026-05-30%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article>
-<article class="role-card" data-role-id="2026-05-30-glean-ai-outcomes-manager-london" data-verdict="strong" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-30&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-30-glean-ai-outcomes-manager-london&quot;, &quot;company&quot;: &quot;Glean&quot;, &quot;title&quot;: &quot;AI Outcomes Manager, London&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/gleanwork/jobs/4613925005&quot;, &quot;meta&quot;: &quot;London&quot;, &quot;fit&quot;: &quot;Excellent customer-facing AI adoption role centered on executive discovery, pilots, rollout, and measurable outcomes.&quot;, &quot;risk&quot;: &quot;Regional coverage and likely hybrid/in-office expectations need to line up with relocation reality.&quot;, &quot;verdict&quot;: &quot;strong&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge strong">Strong</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/gleanwork/jobs/4613925005" target="_blank" rel="noopener noreferrer">Glean — AI Outcomes Manager, London</a></h3>
-      <div class="role-meta"><span class="meta-pill">London</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-16</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.greenhouse.io/gleanwork/jobs/4613925005" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-30-glean-ai-outcomes-manager-london', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-30-glean-ai-outcomes-manager-london', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Excellent customer-facing AI adoption role centered on executive discovery, pilots, rollout, and measurable outcomes.</p>
-  <div class="action-state" data-role-state="2026-05-30-glean-ai-outcomes-manager-london"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Excellent customer-facing AI adoption role centered on executive discovery, pilots, rollout, and measurable outcomes.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>Regional coverage and likely hybrid/in-office expectations need to line up with relocation reality.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Glean%20%E2%80%94%20AI%20Outcomes%20Manager%2C%20London&amp;body=%23%23%20Role%0A-%20Company%3A%20Glean%0A-%20Title%3A%20AI%20Outcomes%20Manager%2C%20London%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/gleanwork/jobs/4613925005%0A-%20Brief%20date%3A%202026-05-30%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article></div>
-</section>
-    <section class="panel section" data-group="maybe" id="maybe">
-  <div class="section-head">
-    <div class="group-anchor"><h2>Carryover shortlist — Maybe</h2><span class="badge count">2 roles</span></div>
-    <div class="group-summary">Carryover backlog from earlier briefs; keep these if you want more volume after the best fits.</div>
-  </div>
-  <div class="roles"><article class="role-card" data-role-id="2026-05-30-anthropic-strategic-partner-development-product-partnerships-cybersecurity" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-30&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-30-anthropic-strategic-partner-development-product-partnerships-cybersecurity&quot;, &quot;company&quot;: &quot;Anthropic&quot;, &quot;title&quot;: &quot;Strategic Partner Development, Product Partnerships - Cybersecurity&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/anthropic/jobs/5226540008&quot;, &quot;meta&quot;: &quot;San Francisco / New York City&quot;, &quot;fit&quot;: &quot;True product-partnership seat with AI platform strategy, not a quota AE role.&quot;, &quot;risk&quot;: &quot;Anthropic is explicit that deep cybersecurity ecosystem experience is non-negotiable.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge maybe">Maybe</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/anthropic/jobs/5226540008" target="_blank" rel="noopener noreferrer">Anthropic — Strategic Partner Development, Product Partnerships - Cybersecurity</a></h3>
-      <div class="role-meta"><span class="meta-pill">San Francisco / New York City</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-21</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.greenhouse.io/anthropic/jobs/5226540008" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-30-anthropic-strategic-partner-development-product-partnerships-cybersecurity', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-30-anthropic-strategic-partner-development-product-partnerships-cybersecurity', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>True product-partnership seat with AI platform strategy, not a quota AE role.</p>
-  <div class="action-state" data-role-state="2026-05-30-anthropic-strategic-partner-development-product-partnerships-cybersecurity"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>True product-partnership seat with AI platform strategy, not a quota AE role.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>Anthropic is explicit that deep cybersecurity ecosystem experience is non-negotiable.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Anthropic%20%E2%80%94%20Strategic%20Partner%20Development%2C%20Product%20Partnerships%20-%20Cybersecurity&amp;body=%23%23%20Role%0A-%20Company%3A%20Anthropic%0A-%20Title%3A%20Strategic%20Partner%20Development%2C%20Product%20Partnerships%20-%20Cybersecurity%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/anthropic/jobs/5226540008%0A-%20Brief%20date%3A%202026-05-30%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article>
-<article class="role-card" data-role-id="2026-05-30-conduit-agent-product-manager" data-verdict="maybe" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-30&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-30-conduit-agent-product-manager&quot;, &quot;company&quot;: &quot;Conduit&quot;, &quot;title&quot;: &quot;Agent Product Manager&quot;, &quot;url&quot;: &quot;https://www.ycombinator.com/companies/conduit-ai/jobs/xY3NkA8-agent-product-manager&quot;, &quot;meta&quot;: &quot;San Francisco / Remote&quot;, &quot;fit&quot;: &quot;Good AI workflow/framing angle across onboarding, agent behavior, customer calls, and product feedback loops.&quot;, &quot;risk&quot;: &quot;The real job is hybrid product-success-implementation-account growth, so it may turn more delivery-heavy than ideal.&quot;, &quot;verdict&quot;: &quot;maybe&quot;, &quot;lane&quot;: &quot;YC&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge maybe">Maybe</span>
-        <span class="badge count">Untracked</span>
-        <span class="badge source">YC</span>
-      </div>
-      <h3 class="role-title"><a href="https://www.ycombinator.com/companies/conduit-ai/jobs/xY3NkA8-agent-product-manager" target="_blank" rel="noopener noreferrer">Conduit — Agent Product Manager</a></h3>
-      <div class="role-meta"><span class="meta-pill">San Francisco / Remote</span><span class="meta-pill">YC</span></div>
-      
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://www.ycombinator.com/companies/conduit-ai/jobs/xY3NkA8-agent-product-manager" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-30-conduit-agent-product-manager', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-30-conduit-agent-product-manager', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Good AI workflow/framing angle across onboarding, agent behavior, customer calls, and product feedback loops.</p>
-  <div class="action-state" data-role-state="2026-05-30-conduit-agent-product-manager"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Good AI workflow/framing angle across onboarding, agent behavior, customer calls, and product feedback loops.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>The real job is hybrid product-success-implementation-account growth, so it may turn more delivery-heavy than ideal.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Conduit%20%E2%80%94%20Agent%20Product%20Manager&amp;body=%23%23%20Role%0A-%20Company%3A%20Conduit%0A-%20Title%3A%20Agent%20Product%20Manager%0A-%20URL%3A%20https%3A//www.ycombinator.com/companies/conduit-ai/jobs/xY3NkA8-agent-product-manager%0A-%20Brief%20date%3A%202026-05-30%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article></div>
-</section>
-    <section class="panel section" data-group="skip" id="skip">
-  <div class="section-head">
-    <div class="group-anchor"><h2>Carryover shortlist — Skip</h2><span class="badge count">3 roles</span></div>
-    <div class="group-summary">Carryover backlog from earlier briefs; useful as reference, but low-conversion or off-thesis for now.</div>
-  </div>
-  <div class="roles"><article class="role-card" data-role-id="2026-05-30-glimpse-deployment-strategist" data-verdict="skip" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-30&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-30-glimpse-deployment-strategist&quot;, &quot;company&quot;: &quot;Glimpse&quot;, &quot;title&quot;: &quot;Deployment Strategist&quot;, &quot;url&quot;: &quot;https://www.ycombinator.com/companies/glimpse-2/jobs/IEPkpWx-deployment-strategist&quot;, &quot;meta&quot;: &quot;NYC HQ&quot;, &quot;fit&quot;: &quot;Strong title and good discovery/scoping language around enterprise AI deployments and value realization.&quot;, &quot;risk&quot;: &quot;US visa-only, NYC in-person, and noticeably deeper deployment/domain grind than the headline suggests.&quot;, &quot;verdict&quot;: &quot;skip&quot;, &quot;lane&quot;: &quot;YC&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge skip">Skip</span>
-        <span class="badge count">Untracked</span>
-        <span class="badge source">YC</span>
-      </div>
-      <h3 class="role-title"><a href="https://www.ycombinator.com/companies/glimpse-2/jobs/IEPkpWx-deployment-strategist" target="_blank" rel="noopener noreferrer">Glimpse — Deployment Strategist</a></h3>
-      <div class="role-meta"><span class="meta-pill">NYC HQ</span><span class="meta-pill">YC</span></div>
-      
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://www.ycombinator.com/companies/glimpse-2/jobs/IEPkpWx-deployment-strategist" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-30-glimpse-deployment-strategist', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-30-glimpse-deployment-strategist', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>Strong title and good discovery/scoping language around enterprise AI deployments and value realization.</p>
-  <div class="action-state" data-role-state="2026-05-30-glimpse-deployment-strategist"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>Strong title and good discovery/scoping language around enterprise AI deployments and value realization.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>US visa-only, NYC in-person, and noticeably deeper deployment/domain grind than the headline suggests.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Glimpse%20%E2%80%94%20Deployment%20Strategist&amp;body=%23%23%20Role%0A-%20Company%3A%20Glimpse%0A-%20Title%3A%20Deployment%20Strategist%0A-%20URL%3A%20https%3A//www.ycombinator.com/companies/glimpse-2/jobs/IEPkpWx-deployment-strategist%0A-%20Brief%20date%3A%202026-05-30%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article>
-<article class="role-card" data-role-id="2026-05-30-celonis-strategic-applied-ai-solutions-consultant" data-verdict="skip" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-30&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-30-celonis-strategic-applied-ai-solutions-consultant&quot;, &quot;company&quot;: &quot;Celonis&quot;, &quot;title&quot;: &quot;Strategic Applied AI Solutions Consultant&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/celonis/jobs/7750227003?gh_jid=7750227003&quot;, &quot;meta&quot;: &quot;Stockholm, Sweden&quot;, &quot;fit&quot;: &quot;The title sounds close to target and the customer-facing layer is real.&quot;, &quot;risk&quot;: &quot;The JD is plainly an applied AI engineer/pre-sales build role with Python, RAG, ML tooling, and proof-project depth at the core.&quot;, &quot;verdict&quot;: &quot;skip&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge skip">Skip</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/7750227003?gh_jid=7750227003" target="_blank" rel="noopener noreferrer">Celonis — Strategic Applied AI Solutions Consultant</a></h3>
-      <div class="role-meta"><span class="meta-pill">Stockholm, Sweden</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-28</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/7750227003?gh_jid=7750227003" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-30-celonis-strategic-applied-ai-solutions-consultant', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-30-celonis-strategic-applied-ai-solutions-consultant', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>The title sounds close to target and the customer-facing layer is real.</p>
-  <div class="action-state" data-role-state="2026-05-30-celonis-strategic-applied-ai-solutions-consultant"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>The title sounds close to target and the customer-facing layer is real.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>The JD is plainly an applied AI engineer/pre-sales build role with Python, RAG, ML tooling, and proof-project depth at the core.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Celonis%20%E2%80%94%20Strategic%20Applied%20AI%20Solutions%20Consultant&amp;body=%23%23%20Role%0A-%20Company%3A%20Celonis%0A-%20Title%3A%20Strategic%20Applied%20AI%20Solutions%20Consultant%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/celonis/jobs/7750227003%3Fgh_jid%3D7750227003%0A-%20Brief%20date%3A%202026-05-30%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article>
-<article class="role-card" data-role-id="2026-05-30-arize-ai-partner-product-solutions-lead" data-verdict="skip" data-webhook-payload="{&quot;source&quot;: &quot;job-briefs&quot;, &quot;brief_date&quot;: &quot;2026-05-30&quot;, &quot;site_url&quot;: &quot;https://aramshakh.github.io/job-briefs/latest/&quot;, &quot;role_id&quot;: &quot;2026-05-30-arize-ai-partner-product-solutions-lead&quot;, &quot;company&quot;: &quot;Arize AI&quot;, &quot;title&quot;: &quot;Partner Product &amp; Solutions Lead&quot;, &quot;url&quot;: &quot;https://job-boards.greenhouse.io/arizeai/jobs/5978967004&quot;, &quot;meta&quot;: &quot;Remote (United States)&quot;, &quot;fit&quot;: &quot;On paper it hits partnerships, product strategy, and ecosystem leverage.&quot;, &quot;risk&quot;: &quot;In practice it wants a field-CTO/DevRel-style operator with deep modern AI stack fluency and strong Python hands-on credibility.&quot;, &quot;verdict&quot;: &quot;skip&quot;, &quot;lane&quot;: &quot;Pipeline&quot;}">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge skip">Skip</span>
-        <span class="badge count">Backlog</span>
-        <span class="badge source">Pipeline</span>
-      </div>
-      <h3 class="role-title"><a href="https://job-boards.greenhouse.io/arizeai/jobs/5978967004" target="_blank" rel="noopener noreferrer">Arize AI — Partner Product &amp; Solutions Lead</a></h3>
-      <div class="role-meta"><span class="meta-pill">Remote (United States)</span><span class="meta-pill">Pipeline</span></div>
-      <span class="inline-note">First seen: 2026-05-16</span>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://job-boards.greenhouse.io/arizeai/jobs/5978967004" target="_blank" rel="noopener noreferrer">Open role</a>
-      <button class="action-btn apply" type="button" onclick="setRoleState('2026-05-30-arize-ai-partner-product-solutions-lead', 'apply')">Pursue</button>
-      <button class="action-btn skip" type="button" onclick="setRoleState('2026-05-30-arize-ai-partner-product-solutions-lead', 'skip')">Skip</button>
-    </div>
-  </div>
-  <p class="reason"><strong>Why it’s here:</strong>On paper it hits partnerships, product strategy, and ecosystem leverage.</p>
-  <div class="action-state" data-role-state="2026-05-30-arize-ai-partner-product-solutions-lead"></div>
-  <details class="role-details">
-    <summary>Risk / details</summary>
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h4>Fit</h4>
-        <p>On paper it hits partnerships, product strategy, and ecosystem leverage.</p>
-      </div>
-      <div class="detail-box">
-        <h4>Risk</h4>
-        <p>In practice it wants a field-CTO/DevRel-style operator with deep modern AI stack fluency and strong Python hands-on credibility.</p>
-      </div>
-    </div>
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn-secondary" href="https://github.com/aramshakh/job-briefs/issues/new?labels=apply-request&amp;title=Apply%3A%20Arize%20AI%20%E2%80%94%20Partner%20Product%20%26%20Solutions%20Lead&amp;body=%23%23%20Role%0A-%20Company%3A%20Arize%20AI%0A-%20Title%3A%20Partner%20Product%20%26%20Solutions%20Lead%0A-%20URL%3A%20https%3A//job-boards.greenhouse.io/arizeai/jobs/5978967004%0A-%20Brief%20date%3A%202026-05-30%0A%0A%23%23%20Notes%0A-%20Added%20from%20GitHub%20Pages%20brief%0A" target="_blank" rel="noopener noreferrer">Queue issue</a>
-      <span class="inline-note">GitHub queue requires GitHub login.</span>
-    </div>
-  </details>
-</article></div>
-</section>
   </main>
   
 <script>
