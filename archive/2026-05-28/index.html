@@ -126,7 +126,11 @@ main, .shell { max-width: 1160px; margin: 0 auto; padding: 24px 18px 48px; }
 .role-card[data-verdict="maybe"] { border-left-color: var(--maybe); }
 .role-card[data-verdict="skip"] { border-left-color: var(--skip); }
 .role-card[data-local-state="apply"] { box-shadow: inset 0 0 0 1px rgba(100, 213, 154, 0.22); }
-.role-card[data-local-state="skip"] { box-shadow: inset 0 0 0 1px rgba(234, 128, 128, 0.22); }
+.role-card[data-local-state="later"] { box-shadow: inset 0 0 0 1px rgba(141, 189, 255, 0.22); }
+.role-card[data-local-state="skip"] { box-shadow: inset 0 0 0 1px rgba(234, 128, 128, 0.22); opacity: .82; }
+.suppression-bar { display: grid; gap: 8px; margin-top: 12px; }
+.suppression-bar .inline-note strong { color: var(--text); }
+.section-stack { display: grid; gap: 18px; }
 .role-top {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start;
 }
@@ -206,8 +210,8 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <div>
           <div class="kicker">Daily triage brief</div>
           <h1>Aram Daily Job Brief</h1>
-          <p class="hero-summary">2026-05-28 · 10 shortlisted · 2 Strong · 5 Maybe · 3 Skip</p>
-          <p class="hero-overview">No strong net-new role showed up in today’s scan. The cleanest new item is PolyAI’s Senior Product Manager as a selective maybe; the other fresh hits skew too technical, too geography-blocked, or too far from your real product/GTM spine. Best current options still come from one strong enterprise-adoption lane in the existing pipeline plus one YC deployment role with real upside.</p>
+          <p class="hero-summary">2026-05-28 · </p>
+          <p class="hero-overview">2026-05-28 · 10 shortlisted · 2 Strong · 5 Maybe · 3 Skip</p>
           <div class="hero-actions" style="margin-top:16px;">
             <a class="btn" href="#new-today">Open real new-today roles</a>
           </div>
@@ -216,53 +220,53 @@ details.role-details summary::-webkit-details-marker { display: none; }
         <aside class="panel" aria-label="Today summary">
           <h2 style="margin-bottom:10px;">Today</h2>
           <div class="metric-grid" style="margin-top:0; grid-template-columns:repeat(2, minmax(0, 1fr));">
-            <div class="metric"><div class="metric-label">New in scan</div><div class="metric-value">8</div></div>
-            <div class="metric"><div class="metric-label">Shortlisted from new</div><div class="metric-value">3</div></div>
-            <div class="metric"><div class="metric-label">New worthwhile roles</div><div class="metric-value">3</div></div>
+            <div class="metric"><div class="metric-label">New in scan</div><div class="metric-value">7</div></div>
+            <div class="metric"><div class="metric-label">Shortlisted from new</div><div class="metric-value">0</div></div>
+            <div class="metric"><div class="metric-label">New worthwhile roles</div><div class="metric-value">0</div></div>
             <div class="metric"><div class="metric-label">Carryover shown</div><div class="metric-value">0</div></div>
           </div>
-          <div class="metric" style="margin-top:10px;"><div class="metric-label">Verdicts in new-only shortlist</div><div class="metric-note">Strong 0 · Maybe 1 · Skip 2</div></div>
+          <div class="metric" style="margin-top:10px;"><div class="metric-label">Verdicts in new-only shortlist</div><div class="metric-note">Strong 0 · Maybe 0 · Skip 0</div></div>
         </aside>
       </div>
     </section>
-    <section class="panel section" id="new-today">
+    <section class="panel section" id="new-today" data-group="new-today">
   <div class="section-head">
-    <div class="group-anchor"><h2>New today from scan</h2><span class="badge count">8 roles</span></div>
-    <div class="group-summary">Raw additions first seen on 2026-05-28. This is the honest today bucket.</div>
+    <div class="group-anchor"><h2>New today from scan</h2><span class="badge count">7 roles</span></div>
+    <div class="group-summary">Raw additions first seen on 2026-05-28. This stays separate from backlog on purpose.</div>
   </div>
-  <div class="roles"><article class="role-card" data-verdict="maybe">
+  <div class="roles"><article class="role-card" data-role-card="1" data-role-id="polyai-senior-product-manager" data-role-family="product">
   <div class="role-top">
     <div>
       <div class="role-meta">
         <span class="badge count">New today</span>
         <span class="badge source">PolyAI</span>
-        <span class="badge count">Shortlisted</span>
-        <span class="badge maybe">Maybe</span>
+        <span class="badge count">Not shortlisted</span>
+        
       </div>
       <h3 class="role-title"><a href="https://job-boards.eu.greenhouse.io/polyai/jobs/4654856101" target="_blank" rel="noopener noreferrer">PolyAI — Senior Product Manager</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span></div>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">Product</span></div>
     </div>
     <div class="card-actions">
       <a class="btn" href="https://job-boards.eu.greenhouse.io/polyai/jobs/4654856101" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card" data-verdict="skip">
+</article> <article class="role-card" data-role-card="1" data-role-id="anthropic-manager-of-applied-ai-architecture-startups" data-role-family="general">
   <div class="role-top">
     <div>
       <div class="role-meta">
         <span class="badge count">New today</span>
         <span class="badge source">Anthropic</span>
-        <span class="badge count">Shortlisted</span>
-        <span class="badge skip">Skip</span>
+        <span class="badge count">Not shortlisted</span>
+        
       </div>
       <h3 class="role-title"><a href="https://job-boards.greenhouse.io/anthropic/jobs/5230755008" target="_blank" rel="noopener noreferrer">Anthropic — Manager of Applied AI Architecture, Startups</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span></div>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">General</span></div>
     </div>
     <div class="card-actions">
       <a class="btn" href="https://job-boards.greenhouse.io/anthropic/jobs/5230755008" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card">
+</article> <article class="role-card" data-role-card="1" data-role-id="anthropic-product-manager-consumer" data-role-family="product">
   <div class="role-top">
     <div>
       <div class="role-meta">
@@ -272,13 +276,13 @@ details.role-details summary::-webkit-details-marker { display: none; }
         
       </div>
       <h3 class="role-title"><a href="https://job-boards.greenhouse.io/anthropic/jobs/5127559008" target="_blank" rel="noopener noreferrer">Anthropic — Product Manager, Consumer</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span></div>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">Product</span></div>
     </div>
     <div class="card-actions">
       <a class="btn" href="https://job-boards.greenhouse.io/anthropic/jobs/5127559008" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card">
+</article> <article class="role-card" data-role-card="1" data-role-id="glean-senior-product-marketing-manager-solutions" data-role-family="general">
   <div class="role-top">
     <div>
       <div class="role-meta">
@@ -288,29 +292,29 @@ details.role-details summary::-webkit-details-marker { display: none; }
         
       </div>
       <h3 class="role-title"><a href="https://job-boards.greenhouse.io/gleanwork/jobs/4699044005" target="_blank" rel="noopener noreferrer">Glean — Senior Product Marketing Manager, Solutions</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span></div>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">General</span></div>
     </div>
     <div class="card-actions">
       <a class="btn" href="https://job-boards.greenhouse.io/gleanwork/jobs/4699044005" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card" data-verdict="skip">
+</article> <article class="role-card" data-role-card="1" data-role-id="celonis-principal-value-engineer" data-role-family="value">
   <div class="role-top">
     <div>
       <div class="role-meta">
         <span class="badge count">New today</span>
         <span class="badge source">Celonis</span>
-        <span class="badge count">Shortlisted</span>
-        <span class="badge skip">Skip</span>
+        <span class="badge count">Not shortlisted</span>
+        
       </div>
       <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/7732281003?gh_jid=7732281003" target="_blank" rel="noopener noreferrer">Celonis — Principal Value Engineer</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span></div>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">Value</span></div>
     </div>
     <div class="card-actions">
       <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/7732281003?gh_jid=7732281003" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card">
+</article> <article class="role-card" data-role-card="1" data-role-id="celonis-strategic-applied-ai-solutions-consultant" data-role-family="general">
   <div class="role-top">
     <div>
       <div class="role-meta">
@@ -320,13 +324,13 @@ details.role-details summary::-webkit-details-marker { display: none; }
         
       </div>
       <h3 class="role-title"><a href="https://job-boards.greenhouse.io/celonis/jobs/7750227003?gh_jid=7750227003" target="_blank" rel="noopener noreferrer">Celonis — Strategic Applied AI Solutions Consultant</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span></div>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">General</span></div>
     </div>
     <div class="card-actions">
       <a class="btn" href="https://job-boards.greenhouse.io/celonis/jobs/7750227003?gh_jid=7750227003" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card">
+</article> <article class="role-card" data-role-card="1" data-role-id="sumup-commercial-terrain-ind-pendant-freelance" data-role-family="general">
   <div class="role-top">
     <div>
       <div class="role-meta">
@@ -336,65 +340,56 @@ details.role-details summary::-webkit-details-marker { display: none; }
         
       </div>
       <h3 class="role-title"><a href="https://sumup.com/careers/positions/7875352002?gh_jid=7875352002" target="_blank" rel="noopener noreferrer">SumUp — Commercial Terrain - Indépendant (Freelance)</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span></div>
+      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span><span class="meta-pill">General</span></div>
     </div>
     <div class="card-actions">
       <a class="btn" href="https://sumup.com/careers/positions/7875352002?gh_jid=7875352002" target="_blank" rel="noopener noreferrer">Open role</a>
     </div>
   </div>
-</article> <article class="role-card">
-  <div class="role-top">
-    <div>
-      <div class="role-meta">
-        <span class="badge count">New today</span>
-        <span class="badge source">SumUp</span>
-        <span class="badge count">Not shortlisted</span>
-        
-      </div>
-      <h3 class="role-title"><a href="https://sumup.com/careers/positions/8197069002?gh_jid=8197069002" target="_blank" rel="noopener noreferrer">SumUp — Commercial Terrain - Indépendant (Freelance)</a></h3>
-      <div class="role-meta"><span class="meta-pill">first seen 2026-05-28</span><span class="meta-pill">greenhouse-api</span></div>
-    </div>
-    <div class="card-actions">
-      <a class="btn" href="https://sumup.com/careers/positions/8197069002?gh_jid=8197069002" target="_blank" rel="noopener noreferrer">Open role</a>
-    </div>
-  </div>
 </article></div>
+  <p class="inline-note" data-empty-state hidden>Nothing new today.</p>
 </section>
     <section class="panel section focus-box">
       <div class="section-head"><h2>Recommended focus</h2><div class="inline-note">Compressed on purpose — open only if you need the sorting logic.</div></div>
       <details>
         <summary>Show triage rules</summary>
-        <ul class="focus-list" style="margin-top:12px;"><li>Prioritize Glean AI Outcomes Manager and HappyRobot Deployment Strategist as the two best conversion-quality bets right now.</li><li>Use Arize, PolyAI, Vercel, and Parloa as selective maybes only if sponsorship or relocation support looks real.</li><li>Keep skipping flattering technical-architecture and value-engineering roles that look prestigious but are too engineering-heavy or too delivery-trench-heavy.</li></ul>
+        <ul class="focus-list" style="margin-top:12px;"></ul>
       </details>
     </section>
   </main>
   
 <script>
-const HERMES_PURSUE_WEBHOOK = "https://modifications-move-little-work.trycloudflare.com/webhooks/job-brief-apply-36ad777992fe";
+const HERMES_STATE_WEBHOOK = "https://modifications-move-little-work.trycloudflare.com/webhooks/job-brief-apply-36ad777992fe";
+const INITIAL_BOARD_STATE = {"hidden_families": [], "roles": {"arize ai::partner product and solutions lead": {"state": "later", "updated_at": "2026-06-02T12:00:00Z", "company": "Arize AI", "title": "Partner Product & Solutions Lead", "url": "https://job-boards.greenhouse.io/arizeai/jobs/5978967004", "role_id": "", "family": "partnerships", "source": "job-briefs"}, "glean::ai outcomes manager": {"state": "preparing", "updated_at": "2026-05-16", "company": "Glean", "title": "AI Outcomes Manager, London", "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4613925005", "family": "value", "source": "apply-ops"}, "celonis::senior applied ai solutions consultant": {"state": "preparing", "updated_at": "2026-05-17", "company": "Celonis", "title": "Senior Applied AI Solutions Consultant", "url": "https://job-boards.greenhouse.io/celonis/jobs/7661696003", "family": "general", "source": "apply-ops"}, "credal ai::founding gtm deployment strategist": {"state": "blocked", "updated_at": "2026-05-17", "company": "Credal.ai", "title": "Founding GTM - Deployment Strategist", "url": "https://www.ycombinator.com/companies/credal-ai/jobs/3OnqAVU-founding-gtm-deployment-strategist", "family": "value", "source": "apply-ops"}, "intercom::product manager": {"state": "preparing", "updated_at": "2026-05-17", "company": "Intercom / Fin", "title": "Product Manager", "url": "https://job-boards.greenhouse.io/intercom/jobs/5663703", "family": "product", "source": "apply-ops"}, "glean::product manager ai quality": {"state": "preparing", "updated_at": "2026-05-17", "company": "Glean", "title": "Product Manager, AI Quality", "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4694764005", "family": "product", "source": "apply-ops"}, "soff::founding ai product manager": {"state": "blocked", "updated_at": "2026-05-17", "company": "Soff", "title": "Founding AI Product Manager", "url": "", "family": "product", "source": "apply-ops"}, "intercom::staff ai product manager": {"state": "preparing", "updated_at": "2026-05-17", "company": "Intercom / Fin", "title": "Staff AI Product Manager", "url": "https://job-boards.greenhouse.io/intercom/jobs/7464294", "family": "product", "source": "apply-ops"}, "glimpse::deployment strategist": {"state": "blocked", "updated_at": "2026-05-17", "company": "Glimpse", "title": "Deployment Strategist", "url": "", "family": "value", "source": "apply-ops"}, "anthropic::applied ai architect startups": {"state": "blocked", "updated_at": "2026-05-17", "company": "Anthropic", "title": "Applied AI Architect, Startups", "url": "https://job-boards.greenhouse.io/anthropic/jobs/5193973008", "family": "general", "source": "apply-ops"}, "overview::ai gtm operations lead": {"state": "preparing", "updated_at": "2026-05-17", "company": "Overview", "title": "AI GTM Operations Lead", "url": "https://www.ycombinator.com/companies/overview/jobs/5oQK2VP-ai-gtm-operations-lead", "family": "ops", "source": "apply-ops"}}};
+const boardState = INITIAL_BOARD_STATE || { hidden_families: [], roles: {} };
 function pursueStatusText(queued) {
   return queued
-    ? "Queued for Hermes. I'll pick it up from this thread."
-    : 'Saved locally as pursue. Hermes queue ping failed, so this one is only local for now.';
+    ? "Queued for Hermes. Persisted backend state will show on next publish."
+    : "Queue ping failed. No backend persistence confirmed yet.";
 }
-function sendPursueWebhook(roleId) {
-  const card = document.querySelector('[data-role-id="' + roleId + '"]');
-  if (!card || !HERMES_PURSUE_WEBHOOK) return false;
-  const raw = card.getAttribute('data-webhook-payload');
-  if (!raw) return false;
-  let payload;
-  try {
-    payload = JSON.parse(raw);
-  } catch (err) {
-    console.error('Bad webhook payload', err);
-    return false;
-  }
-  payload.action = 'pursue';
-  payload.clicked_at = new Date().toISOString();
+function persistedStateText(state, queued) {
+  if (state === 'apply') return pursueStatusText(queued);
+  if (state === 'later') return queued ? 'Queued as later. Backend state will show on next publish.' : 'Later state set in this view only.';
+  if (state === 'skip') return queued ? 'Queued as skip. Backend state will show on next publish.' : 'Skip state set in this view only.';
+  if (state === 'preparing') return 'Already in Hermes prep lane.';
+  if (state === 'ready') return 'Already marked ready in backend ops.';
+  if (state === 'blocked') return 'Already blocked in backend ops.';
+  if (state === 'submitted') return 'Already submitted.';
+  return '';
+}
+function getHiddenFamilies() {
+  return Array.isArray(boardState.hidden_families) ? boardState.hidden_families : [];
+}
+function getRoleState(roleKey) {
+  return boardState.roles && boardState.roles[roleKey] ? (boardState.roles[roleKey].state || '') : '';
+}
+function queueBoardAction(payload) {
+  if (!HERMES_STATE_WEBHOOK) return false;
   const body = JSON.stringify(payload);
   try {
     if (navigator.sendBeacon) {
       const ok = navigator.sendBeacon(
-        HERMES_PURSUE_WEBHOOK,
+        HERMES_STATE_WEBHOOK,
         new Blob([body], { type: 'text/plain;charset=UTF-8' })
       );
       if (ok) return true;
@@ -403,7 +398,7 @@ function sendPursueWebhook(roleId) {
     console.warn('sendBeacon failed', err);
   }
   try {
-    fetch(HERMES_PURSUE_WEBHOOK, {
+    fetch(HERMES_STATE_WEBHOOK, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
@@ -416,45 +411,117 @@ function sendPursueWebhook(roleId) {
     return false;
   }
 }
-function setRoleState(roleId, state) {
-  const key = 'job-brief:' + roleId;
-  localStorage.setItem(key, state);
+function syncRoleCard(card) {
+  const roleId = card.getAttribute('data-role-id');
+  const roleKey = card.getAttribute('data-role-key');
+  const label = document.querySelector('[data-role-state="' + roleId + '"]');
+  const state = getRoleState(roleKey);
+  if (state) card.setAttribute('data-local-state', state);
+  else card.removeAttribute('data-local-state');
+  if (label) label.textContent = persistedStateText(state, true);
+}
+function setRoleState(roleId, roleKey, state) {
   const card = document.querySelector('[data-role-id="' + roleId + '"]');
   const label = document.querySelector('[data-role-state="' + roleId + '"]');
-  if (card) card.setAttribute('data-local-state', state);
-  if (state === 'apply') {
-    const sentKey = 'job-brief:webhook-sent:' + roleId;
-    const alreadyQueued = localStorage.getItem(sentKey) === '1';
-    const queued = alreadyQueued ? true : sendPursueWebhook(roleId);
-    if (queued) localStorage.setItem(sentKey, '1');
-    if (label) label.textContent = pursueStatusText(queued);
-    return;
+  if (!card || !roleKey) return;
+  const raw = card.getAttribute('data-webhook-payload');
+  let payload = {};
+  if (raw) {
+    try {
+      payload = JSON.parse(raw);
+    } catch (err) {
+      console.error('Bad webhook payload', err);
+    }
   }
-  if (label) label.textContent = 'Saved locally as skip.';
+  payload.action = state === 'apply' ? 'pursue' : state;
+  payload.role_key = roleKey;
+  payload.family = card.getAttribute('data-role-family') || '';
+  payload.clicked_at = new Date().toISOString();
+  if (!boardState.roles) boardState.roles = {};
+  boardState.roles[roleKey] = {
+    ...(boardState.roles[roleKey] || {}),
+    state,
+    updated_at: payload.clicked_at,
+    family: payload.family,
+  };
+  const queued = queueBoardAction(payload);
+  card.setAttribute('data-local-state', state);
+  if (label) label.textContent = persistedStateText(state, queued);
+  applyVisibility();
+}
+function hideRoleFamily(roleId, family, labelText) {
+  if (!family) return;
+  if (!Array.isArray(boardState.hidden_families)) boardState.hidden_families = [];
+  if (!boardState.hidden_families.includes(family)) boardState.hidden_families.push(family);
+  const card = document.querySelector('[data-role-id="' + roleId + '"]');
+  let payload = { action: 'hide-family', family, clicked_at: new Date().toISOString() };
+  if (card) {
+    const raw = card.getAttribute('data-webhook-payload');
+    if (raw) {
+      try {
+        payload = { ...JSON.parse(raw), ...payload };
+      } catch (err) {
+        console.error('Bad webhook payload', err);
+      }
+    }
+  }
+  const queued = queueBoardAction(payload);
+  const label = document.querySelector('[data-role-state="' + roleId + '"]');
+  if (label) label.textContent = queued
+    ? 'Queued hidden family: ' + labelText + '.'
+    : 'Hidden similar roles in this view: ' + labelText + '.';
+  applyVisibility();
+}
+function resetHiddenFamilies() {
+  const families = [...getHiddenFamilies()];
+  boardState.hidden_families = [];
+  families.forEach((family) => {
+    queueBoardAction({ action: 'unhide-family', family, clicked_at: new Date().toISOString() });
+  });
+  applyVisibility();
 }
 function applySavedStates() {
   document.querySelectorAll('[data-role-id]').forEach((card) => {
-    const roleId = card.getAttribute('data-role-id');
-    const state = localStorage.getItem('job-brief:' + roleId);
-    if (!state) return;
-    card.setAttribute('data-local-state', state);
-    const label = document.querySelector('[data-role-state="' + roleId + '"]');
-    if (!label) return;
-    if (state === 'apply') {
-      const queued = localStorage.getItem('job-brief:webhook-sent:' + roleId) === '1';
-      label.textContent = pursueStatusText(queued);
-    } else {
-      label.textContent = 'Saved locally as skip.';
-    }
+    syncRoleCard(card);
   });
+}
+function activeFilter() {
+  const chip = document.querySelector('[data-filter-chip].is-active');
+  return chip ? chip.getAttribute('data-filter-chip') : 'all';
 }
 function setFilter(mode) {
   document.querySelectorAll('[data-filter-chip]').forEach((chip) => {
     chip.classList.toggle('is-active', chip.getAttribute('data-filter-chip') === mode);
   });
+  applyVisibility();
+}
+function applyVisibility() {
+  const mode = activeFilter();
+  const hiddenFamilies = getHiddenFamilies();
+  let hiddenCount = 0;
   document.querySelectorAll('[data-group]').forEach((group) => {
-    group.hidden = mode !== 'all' && group.getAttribute('data-group') !== mode;
+    const groupMode = group.getAttribute('data-group');
+    group.hidden = mode !== 'all' && groupMode !== mode;
   });
+  document.querySelectorAll('[data-role-card="1"]').forEach((card) => {
+    const family = card.getAttribute('data-role-family') || '';
+    const familyHidden = family && hiddenFamilies.includes(family);
+    const localState = card.getAttribute('data-local-state') || getRoleState(card.getAttribute('data-role-key')) || '';
+    if (familyHidden) hiddenCount += 1;
+    card.hidden = familyHidden;
+    if (localState) card.setAttribute('data-local-state', localState);
+  });
+  document.querySelectorAll('[data-group]').forEach((group) => {
+    const visibleCards = [...group.querySelectorAll('[data-role-card="1"]')].filter((card) => !card.hidden);
+    const empty = group.querySelector('[data-empty-state]');
+    if (empty) empty.hidden = visibleCards.length > 0;
+  });
+  const countNode = document.querySelector('[data-hidden-count]');
+  if (countNode) countNode.textContent = String(hiddenCount);
+  const familiesNode = document.querySelector('[data-hidden-families]');
+  if (familiesNode) {
+    familiesNode.textContent = hiddenFamilies.length ? hiddenFamilies.join(' · ') : 'None';
+  }
 }
 window.addEventListener('DOMContentLoaded', () => {
   applySavedStates();
